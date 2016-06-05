@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  tourist-lan
+//  tourist-planner
 //
 //  Created by Antonio Sejas on 5/6/16.
 //  Copyright © 2016 Antonio Sejas. All rights reserved.

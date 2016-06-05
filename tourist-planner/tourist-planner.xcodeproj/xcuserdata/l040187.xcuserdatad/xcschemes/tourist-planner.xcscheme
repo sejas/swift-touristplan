@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B15076EA1D04E2310081C277"
-               BuildableName = "tourist-lan.app"
-               BlueprintName = "tourist-lan"
-               ReferencedContainer = "container:tourist-lan.xcodeproj">
+               BlueprintIdentifier = "B15077081D04E2E60081C277"
+               BuildableName = "tourist-planner.app"
+               BlueprintName = "tourist-planner"
+               ReferencedContainer = "container:tourist-planner.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B15076EA1D04E2310081C277"
-            BuildableName = "tourist-lan.app"
-            BlueprintName = "tourist-lan"
-            ReferencedContainer = "container:tourist-lan.xcodeproj">
+            BlueprintIdentifier = "B15077081D04E2E60081C277"
+            BuildableName = "tourist-planner.app"
+            BlueprintName = "tourist-planner"
+            ReferencedContainer = "container:tourist-planner.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -55,10 +55,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B15076EA1D04E2310081C277"
-            BuildableName = "tourist-lan.app"
-            BlueprintName = "tourist-lan"
-            ReferencedContainer = "container:tourist-lan.xcodeproj">
+            BlueprintIdentifier = "B15077081D04E2E60081C277"
+            BuildableName = "tourist-planner.app"
+            BlueprintName = "tourist-planner"
+            ReferencedContainer = "container:tourist-planner.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -74,10 +74,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B15076EA1D04E2310081C277"
-            BuildableName = "tourist-lan.app"
-            BlueprintName = "tourist-lan"
-            ReferencedContainer = "container:tourist-lan.xcodeproj">
+            BlueprintIdentifier = "B15077081D04E2E60081C277"
+            BuildableName = "tourist-planner.app"
+            BlueprintName = "tourist-planner"
+            ReferencedContainer = "container:tourist-planner.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

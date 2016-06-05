@@ -7,25 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B15076EF1D04E2320081C277 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15076EE1D04E2320081C277 /* AppDelegate.swift */; };
-		B15076F11D04E2320081C277 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15076F01D04E2320081C277 /* ViewController.swift */; };
-		B15076F41D04E2320081C277 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B15076F21D04E2320081C277 /* Main.storyboard */; };
-		B15076F61D04E2320081C277 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B15076F51D04E2320081C277 /* Assets.xcassets */; };
-		B15076F91D04E2320081C277 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B15076F71D04E2320081C277 /* LaunchScreen.storyboard */; };
+		B150770D1D04E2E60081C277 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150770C1D04E2E60081C277 /* AppDelegate.swift */; };
+		B150770F1D04E2E60081C277 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150770E1D04E2E60081C277 /* ViewController.swift */; };
+		B15077121D04E2E60081C277 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B15077101D04E2E60081C277 /* Main.storyboard */; };
+		B15077141D04E2E60081C277 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B15077131D04E2E60081C277 /* Assets.xcassets */; };
+		B15077171D04E2E60081C277 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B15077151D04E2E60081C277 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B15076EB1D04E2310081C277 /* tourist-lan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tourist-lan.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B15076EE1D04E2320081C277 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B15076F01D04E2320081C277 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B15076F31D04E2320081C277 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B15076F51D04E2320081C277 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B15076F81D04E2320081C277 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B15076FA1D04E2320081C277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B15077091D04E2E60081C277 /* tourist-planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tourist-planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B150770C1D04E2E60081C277 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B150770E1D04E2E60081C277 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B15077111D04E2E60081C277 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B15077131D04E2E60081C277 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B15077161D04E2E60081C277 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B15077181D04E2E60081C277 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		B15076E81D04E2310081C277 /* Frameworks */ = {
+		B15077061D04E2E60081C277 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -35,71 +35,71 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B15076E21D04E2310081C277 = {
+		B15077001D04E2E60081C277 = {
 			isa = PBXGroup;
 			children = (
-				B15076ED1D04E2310081C277 /* tourist-lan */,
-				B15076EC1D04E2310081C277 /* Products */,
+				B150770B1D04E2E60081C277 /* tourist-planner */,
+				B150770A1D04E2E60081C277 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		B15076EC1D04E2310081C277 /* Products */ = {
+		B150770A1D04E2E60081C277 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B15076EB1D04E2310081C277 /* tourist-lan.app */,
+				B15077091D04E2E60081C277 /* tourist-planner.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B15076ED1D04E2310081C277 /* tourist-lan */ = {
+		B150770B1D04E2E60081C277 /* tourist-planner */ = {
 			isa = PBXGroup;
 			children = (
-				B15076EE1D04E2320081C277 /* AppDelegate.swift */,
-				B15076F01D04E2320081C277 /* ViewController.swift */,
-				B15076F21D04E2320081C277 /* Main.storyboard */,
-				B15076F51D04E2320081C277 /* Assets.xcassets */,
-				B15076F71D04E2320081C277 /* LaunchScreen.storyboard */,
-				B15076FA1D04E2320081C277 /* Info.plist */,
+				B150770C1D04E2E60081C277 /* AppDelegate.swift */,
+				B150770E1D04E2E60081C277 /* ViewController.swift */,
+				B15077101D04E2E60081C277 /* Main.storyboard */,
+				B15077131D04E2E60081C277 /* Assets.xcassets */,
+				B15077151D04E2E60081C277 /* LaunchScreen.storyboard */,
+				B15077181D04E2E60081C277 /* Info.plist */,
 			);
-			path = "tourist-lan";
+			path = "tourist-planner";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B15076EA1D04E2310081C277 /* tourist-lan */ = {
+		B15077081D04E2E60081C277 /* tourist-planner */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B15076FD1D04E2320081C277 /* Build configuration list for PBXNativeTarget "tourist-lan" */;
+			buildConfigurationList = B150771B1D04E2E60081C277 /* Build configuration list for PBXNativeTarget "tourist-planner" */;
 			buildPhases = (
-				B15076E71D04E2310081C277 /* Sources */,
-				B15076E81D04E2310081C277 /* Frameworks */,
-				B15076E91D04E2310081C277 /* Resources */,
+				B15077051D04E2E60081C277 /* Sources */,
+				B15077061D04E2E60081C277 /* Frameworks */,
+				B15077071D04E2E60081C277 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "tourist-lan";
-			productName = "tourist-lan";
-			productReference = B15076EB1D04E2310081C277 /* tourist-lan.app */;
+			name = "tourist-planner";
+			productName = "tourist-planner";
+			productReference = B15077091D04E2E60081C277 /* tourist-planner.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		B15076E31D04E2310081C277 /* Project object */ = {
+		B15077011D04E2E60081C277 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Antonio Sejas";
 				TargetAttributes = {
-					B15076EA1D04E2310081C277 = {
+					B15077081D04E2E60081C277 = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
 				};
 			};
-			buildConfigurationList = B15076E61D04E2310081C277 /* Build configuration list for PBXProject "tourist-lan" */;
+			buildConfigurationList = B15077041D04E2E60081C277 /* Build configuration list for PBXProject "tourist-planner" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -107,54 +107,54 @@
 				en,
 				Base,
 			);
-			mainGroup = B15076E21D04E2310081C277;
-			productRefGroup = B15076EC1D04E2310081C277 /* Products */;
+			mainGroup = B15077001D04E2E60081C277;
+			productRefGroup = B150770A1D04E2E60081C277 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B15076EA1D04E2310081C277 /* tourist-lan */,
+				B15077081D04E2E60081C277 /* tourist-planner */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		B15076E91D04E2310081C277 /* Resources */ = {
+		B15077071D04E2E60081C277 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B15076F91D04E2320081C277 /* LaunchScreen.storyboard in Resources */,
-				B15076F61D04E2320081C277 /* Assets.xcassets in Resources */,
-				B15076F41D04E2320081C277 /* Main.storyboard in Resources */,
+				B15077171D04E2E60081C277 /* LaunchScreen.storyboard in Resources */,
+				B15077141D04E2E60081C277 /* Assets.xcassets in Resources */,
+				B15077121D04E2E60081C277 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B15076E71D04E2310081C277 /* Sources */ = {
+		B15077051D04E2E60081C277 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B15076F11D04E2320081C277 /* ViewController.swift in Sources */,
-				B15076EF1D04E2320081C277 /* AppDelegate.swift in Sources */,
+				B150770F1D04E2E60081C277 /* ViewController.swift in Sources */,
+				B150770D1D04E2E60081C277 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B15076F21D04E2320081C277 /* Main.storyboard */ = {
+		B15077101D04E2E60081C277 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B15076F31D04E2320081C277 /* Base */,
+				B15077111D04E2E60081C277 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		B15076F71D04E2320081C277 /* LaunchScreen.storyboard */ = {
+		B15077151D04E2E60081C277 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				B15076F81D04E2320081C277 /* Base */,
+				B15077161D04E2E60081C277 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -162,7 +162,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		B15076FB1D04E2320081C277 /* Debug */ = {
+		B15077191D04E2E60081C277 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -208,7 +208,7 @@
 			};
 			name = Debug;
 		};
-		B15076FC1D04E2320081C277 /* Release */ = {
+		B150771A1D04E2E60081C277 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -247,24 +247,24 @@
 			};
 			name = Release;
 		};
-		B15076FE1D04E2320081C277 /* Debug */ = {
+		B150771C1D04E2E60081C277 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "tourist-lan/Info.plist";
+				INFOPLIST_FILE = "tourist-planner/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.baulen.tourist-lan";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.baulen.tourist-planner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		B15076FF1D04E2320081C277 /* Release */ = {
+		B150771D1D04E2E60081C277 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = "tourist-lan/Info.plist";
+				INFOPLIST_FILE = "tourist-planner/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.baulen.tourist-lan";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.baulen.tourist-planner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -272,24 +272,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B15076E61D04E2310081C277 /* Build configuration list for PBXProject "tourist-lan" */ = {
+		B15077041D04E2E60081C277 /* Build configuration list for PBXProject "tourist-planner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B15076FB1D04E2320081C277 /* Debug */,
-				B15076FC1D04E2320081C277 /* Release */,
+				B15077191D04E2E60081C277 /* Debug */,
+				B150771A1D04E2E60081C277 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B15076FD1D04E2320081C277 /* Build configuration list for PBXNativeTarget "tourist-lan" */ = {
+		B150771B1D04E2E60081C277 /* Build configuration list for PBXNativeTarget "tourist-planner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B15076FE1D04E2320081C277 /* Debug */,
-				B15076FF1D04E2320081C277 /* Release */,
+				B150771C1D04E2E60081C277 /* Debug */,
+				B150771D1D04E2E60081C277 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = B15076E31D04E2310081C277 /* Project object */;
+	rootObject = B15077011D04E2E60081C277 /* Project object */;
 }
