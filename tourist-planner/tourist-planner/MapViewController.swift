@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var map: MKMapView!
@@ -17,6 +18,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         //Get locations from api
 //        getParseLocationsAndRefreshMap()
+        
+        getRandomPhotos()
     }
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.navigationBarHidden = true
@@ -93,6 +96,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 //            }
 //        }
 //    }
+    
+    //MARK: Location
+    func getRandomPhotos() {
+        let coordinates = CLLocationCoordinate2D(latitude: 28.124904, longitude: -15.428243)
+        FlickrClient.sharedInstance().searchPhotosByLocation(coordinates) { (result, error) in
+            guard nil == error else {
+                print("error searchPhotosByLocation",error)
+                CustomAlert.sharedInstance().showError(self, title: "", message: "Error searching photos")
+                return
+            }
+            print("searchPhotosByLocation",result)
+
+        }
+    }
 
 }
 

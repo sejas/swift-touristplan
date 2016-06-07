@@ -30,8 +30,10 @@ class FlickrClient: NSObject {
     
     //MARK: REST API Methods
     func searchPhotosByLocation(coordinates: CLLocationCoordinate2D, completionHandler: (result: AnyObject!, error: NSError?) -> Void){
-        
-        NetworkHelper.sharedInstance().postRequest(Constants.URLStudentLocations, headers: headersAuth, jsonBody: jsonBody, completionHandlerForPOST: completionHandler)
+        var parameters = commonParameters
+        parameters["lat"] = "\(coordinates.latitude)"
+        parameters["lon"] = "\(coordinates.longitude)"
+        NetworkHelper.sharedInstance().postRequest(Constants.BaseURL, headers: nil, parameters: parameters, completionHandlerForPOST: completionHandler)
     }
     
     

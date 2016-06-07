@@ -37,7 +37,7 @@ class NetworkHelper: NSObject {
     }
     
     // MARK: POST
-    func postRequest(urlString: String, headers: [String:String]?, jsonBody: String, completionHandlerForPOST: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func postRequestJSON(urlString: String, headers: [String:String]?, jsonBody: String, completionHandlerForPOST: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         guard let url = NSURL(string: urlString) else {
             let userInfo = [NSLocalizedDescriptionKey : "Error parsin URL \(urlString)"]
             completionHandlerForPOST(result: nil, error: NSError(domain: "NetworkHelper", code: 1, userInfo: userInfo))
@@ -51,6 +51,29 @@ class NetworkHelper: NSObject {
         request.HTTPBody = jsonBody.dataUsingEncoding(NSUTF8StringEncoding)
         
         return requestHelper(request, completionHandler: completionHandlerForPOST)
+    }
+    
+    // MARK: POST
+    func postRequest(urlString: String, headers: [String:String]?, parameters: [String:String], completionHandlerForPOST: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        guard let url = NSURL(string: urlString) else {
+            let userInfo = [NSLocalizedDescriptionKey : "Error parsin URL \(urlString)"]
+            completionHandlerForPOST(result: nil, error: NSError(domain: "NetworkHelper", code: 1, userInfo: userInfo))
+            return NSURLSessionDataTask()
+        }
+        
+        let request = requestFromHeaders(url, headers: headers)
+        request.HTTPMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.HTTPBody = self.helperQueryItems(parameters).dataUsingEncoding(NSUTF8StringEncoding)
+        print("HTTPBody", self.helperQueryItems(parameters))
+        return requestHelper(request, completionHandler: completionHandlerForPOST)
+    }
+    
+    private func helperQueryItems(components: [String: String]) -> String {
+        return components.reduce("") { (t, s1) -> String in
+            return "\(t)\(s1.0)=\(s1.1.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)&"
+        }
     }
     
     // MARK: Request helper

@@ -15,6 +15,7 @@
 		B15077201D04E6110081C277 /* BauUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150771F1D04E6110081C277 /* BauUtils.swift */; };
 		B15077231D04E91C0081C277 /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15077221D04E91C0081C277 /* NetworkHelper.swift */; };
 		B15077261D0634190081C277 /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B15077251D0634190081C277 /* FlickrClient.swift */; };
+		B150772C1D06A4020081C277 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150772B1D06A4020081C277 /* CustomAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		B150771F1D04E6110081C277 /* BauUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BauUtils.swift; sourceTree = "<group>"; };
 		B15077221D04E91C0081C277 /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		B15077251D0634190081C277 /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
+		B150772B1D06A4020081C277 /* CustomAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomAlert.swift; path = "tourist-planner/CustomAlert.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			children = (
 				B150771F1D04E6110081C277 /* BauUtils.swift */,
 				B15077211D04E8F60081C277 /* Model */,
+				B15077281D06A3D20081C277 /* Views */,
 				B150771E1D04E5B30081C277 /* Controllers */,
 				B150770C1D04E2E60081C277 /* AppDelegate.swift */,
 				B15077101D04E2E60081C277 /* Main.storyboard */,
@@ -95,6 +98,15 @@
 				B15077251D0634190081C277 /* FlickrClient.swift */,
 			);
 			name = Flickr;
+			sourceTree = "<group>";
+		};
+		B15077281D06A3D20081C277 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B150772B1D06A4020081C277 /* CustomAlert.swift */,
+			);
+			name = Views;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +183,7 @@
 				B15077231D04E91C0081C277 /* NetworkHelper.swift in Sources */,
 				B15077261D0634190081C277 /* FlickrClient.swift in Sources */,
 				B15077201D04E6110081C277 /* BauUtils.swift in Sources */,
+				B150772C1D06A4020081C277 /* CustomAlert.swift in Sources */,
 				B150770F1D04E2E60081C277 /* MapViewController.swift in Sources */,
 				B150770D1D04E2E60081C277 /* AppDelegate.swift in Sources */,
 			);
