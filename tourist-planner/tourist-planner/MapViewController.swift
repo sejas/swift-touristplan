@@ -97,7 +97,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
 //        }
 //    }
     
-    //MARK: Location
+    //MARK: Network
     func getRandomPhotos() {
         let coordinates = CLLocationCoordinate2D(latitude: 28.124904, longitude: -15.428243)
         FlickrClient.sharedInstance().searchPhotosByLocation(coordinates) { (result, error) in
@@ -109,6 +109,20 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             print("searchPhotosByLocation",result)
 
         }
+    }
+    
+    
+    //MARK: Gestures
+    func gestureRecognizer(_: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
+        return true
+    }
+    @IBAction func actionGestureLongPress(sender: UILongPressGestureRecognizer) {
+        let touchPoint = sender.locationInView(map)
+        let newCoordinates = map.convertPoint(touchPoint, toCoordinateFromView: map)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = newCoordinates
+        map.addAnnotation(annotation)
     }
 
 }
