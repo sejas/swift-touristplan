@@ -74,9 +74,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            pinView!.canShowCallout = true
-            pinView!.pinTintColor = UIColor.redColor()
-            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+//            pinView!.canShowCallout = true
+            pinView!.pinTintColor = UIColor.blueColor()
+//            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+
+            pinView!.canShowCallout = false //false, because  when tap on pin we make a segue
         }
         else {
             pinView!.annotation = annotation
@@ -85,17 +87,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         return pinView
     }
     
-//    // This delegate method is implemented to respond to taps. It opens the system browser
-//    // to the URL specified in the annotationViews subtitle property.
-//    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        if control == view.rightCalloutAccessoryView {
-//            if let toOpen = view.annotation?.subtitle! {
-//                NetworkHelper.sharedInstance().openURLSafari(toOpen) {
-//                    CustomAlert.sharedInstance().showError(self, title: "", message: "Invalid URL")
-//                }
-//            }
-//        }
+    // This delegate method is implemented to respond to taps. It opens the system browser
+    // to the URL specified in the annotationViews subtitle property.
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+            print("calloutAccessoryControlTapped tapped and annotation",view)
+    }
+    
+//    
+//    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+//        print("tapped and annotation",view)
 //    }
+    
+    func mapView(mapView: MKMapView,didSelectAnnotationView view: MKAnnotationView){
+        print("tapped and annotation",view)
+        performSegueWithIdentifier("toCollectionView", sender: view.annotation)
+    }
+    
     
     //MARK: Network
     func getRandomPhotos() {
@@ -122,6 +129,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let newCoordinates = map.convertPoint(touchPoint, toCoordinateFromView: map)
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinates
+        
         map.addAnnotation(annotation)
     }
 
