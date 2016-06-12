@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B14659231D0E1D60008AD4CF /* CellPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14659221D0E1D60008AD4CF /* CellPhotoCollectionViewCell.swift */; };
 		B150770D1D04E2E60081C277 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150770C1D04E2E60081C277 /* AppDelegate.swift */; };
 		B150770F1D04E2E60081C277 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150770E1D04E2E60081C277 /* MapViewController.swift */; };
 		B15077121D04E2E60081C277 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B15077101D04E2E60081C277 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B14659221D0E1D60008AD4CF /* CellPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		B15077091D04E2E60081C277 /* tourist-planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tourist-planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B150770C1D04E2E60081C277 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B150770E1D04E2E60081C277 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			children = (
 				B150770E1D04E2E60081C277 /* MapViewController.swift */,
 				B150772D1D0940D80081C277 /* CollectionViewController.swift */,
+				B14659221D0E1D60008AD4CF /* CellPhotoCollectionViewCell.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 				B150772E1D0940D80081C277 /* CollectionViewController.swift in Sources */,
 				B150770F1D04E2E60081C277 /* MapViewController.swift in Sources */,
 				B150770D1D04E2E60081C277 /* AppDelegate.swift in Sources */,
+				B14659231D0E1D60008AD4CF /* CellPhotoCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +345,7 @@
 				B150771D1D04E2E60081C277 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
