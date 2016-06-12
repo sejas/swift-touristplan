@@ -11,13 +11,15 @@ import MapKit
 import CoreLocation
 
 class MapViewController: UIViewController, MKMapViewDelegate {
+    
+    
     @IBOutlet weak var map: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Get locations from api
-//        getParseLocationsAndRefreshMap()
+        //        getParseLocationsAndRefreshMap()
         
         getRandomPhotos()
     }
@@ -27,7 +29,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewWillDisappear(animated: Bool) {
         self.navigationController?.navigationBarHidden = false
     }
-
+    
     // MARK: MAP
     func updateLocationsMap() {
         //Delete old annotations if there were some
@@ -42,17 +44,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // to create map annotations. This would be more stylish if the dictionaries were being
         // used to create custom structs. Perhaps StudentLocation structs.
         
-//        for oneLocation in StudentLocations.sharedInstance().locations {
-//            
-//            // Here we create the annotation and set its coordiate, title, and subtitle properties
-//            let annotation = MKPointAnnotation()
-//            annotation.coordinate = oneLocation.coordinate
-//            annotation.title = "\(oneLocation.firstName) \(oneLocation.lastName)"
-//            annotation.subtitle = oneLocation.mediaURL
-//            
-//            // Finally we place the annotation in an array of annotations.
-//            annotations.append(annotation)
-//        }
+        //        for oneLocation in StudentLocations.sharedInstance().locations {
+        //
+        //            // Here we create the annotation and set its coordiate, title, and subtitle properties
+        //            let annotation = MKPointAnnotation()
+        //            annotation.coordinate = oneLocation.coordinate
+        //            annotation.title = "\(oneLocation.firstName) \(oneLocation.lastName)"
+        //            annotation.subtitle = oneLocation.mediaURL
+        //
+        //            // Finally we place the annotation in an array of annotations.
+        //            annotations.append(annotation)
+        //        }
         
         performUIUpdatesOnMain({
             // When the array is complete, we add the annotations to the map.
@@ -74,10 +76,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-//            pinView!.canShowCallout = true
+            //            pinView!.canShowCallout = true
             pinView!.pinTintColor = UIColor.blueColor()
-//            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-
+            //            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+            
             pinView!.canShowCallout = false //false, because  when tap on pin we make a segue
         }
         else {
@@ -90,18 +92,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     // This delegate method is implemented to respond to taps. It opens the system browser
     // to the URL specified in the annotationViews subtitle property.
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-            print("calloutAccessoryControlTapped tapped and annotation",view)
+        print("calloutAccessoryControlTapped tapped and annotation",view)
     }
     
-//    
-//    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-//        print("tapped and annotation",view)
-//    }
-    
-    func mapView(mapView: MKMapView,didSelectAnnotationView view: MKAnnotationView){
-        print("tapped and annotation",view)
-        performSegueWithIdentifier("toCollectionView", sender: view.annotation)
-    }
+    //
+    //    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+    //        print("tapped and annotation",view)
+    //    }
     
     
     //MARK: Network
@@ -114,14 +111,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 return
             }
             print("searchPhotosByLocation",result)
-
+            
         }
     }
     
     
     //MARK: Gestures
     func gestureRecognizer(_: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
+                           shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
         return true
     }
     @IBAction func actionGestureLongPress(sender: UILongPressGestureRecognizer) {
@@ -132,6 +129,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         map.addAnnotation(annotation)
     }
-
+    
+    //Segue
+    func mapView(mapView: MKMapView,didSelectAnnotationView view: MKAnnotationView){
+        print("tapped and annotation",view)
+        performSegueWithIdentifier("toCollectionView", sender: view.annotation)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if ("toCollectionView" == segue.identifier!) {
+            let v = segue.destinationViewController as! CollectionViewController
+            v.annotation = sender as? MKAnnotation
+        }
+    }
+    
 }
 

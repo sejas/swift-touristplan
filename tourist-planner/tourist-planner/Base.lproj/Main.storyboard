@@ -67,10 +67,10 @@
             </objects>
             <point key="canvasLocation" x="361" y="383"/>
         </scene>
-        <!--View Controller-->
+        <!--Collection View Controller-->
         <scene sceneID="cCE-mD-6P1">
             <objects>
-                <viewController id="DHu-1y-huL" sceneMemberID="viewController">
+                <viewController id="DHu-1y-huL" customClass="CollectionViewController" customModule="tourist_planner" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4Ke-DK-BlZ"/>
                         <viewControllerLayoutGuide type="bottom" id="w5a-Ne-iBO"/>
