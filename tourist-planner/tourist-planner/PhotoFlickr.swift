@@ -34,6 +34,10 @@ class PhotoFlickr: NSManagedObject {
         url = dictionary[Keys.url] as! String
     }
     
+    override func prepareForDeletion() {
+        // delete image from memory
+        FlickrClient.Caches.imageCache.storeImage(nil, withIdentifier: self.id)
+    }
     
     
     
