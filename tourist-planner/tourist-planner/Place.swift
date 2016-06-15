@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import MapKit
 
 class Place: NSManagedObject {
     @NSManaged var latitude: Double
@@ -32,11 +33,10 @@ class Place: NSManagedObject {
         latitude = dictionary[Keys.latitude] as! Double
         longitude = dictionary[Keys.longitude] as! Double
         
-        do {
-            try context.save()
-        } catch let error {
-            print("Error saving Place into core data: \(error)")
-        }
+    }
+    
+    func getCoordinate() -> CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
     

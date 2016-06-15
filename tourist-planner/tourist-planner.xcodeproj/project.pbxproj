@@ -12,6 +12,7 @@
 		B14659271D11D02D008AD4CF /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14659261D11D02D008AD4CF /* Place.swift */; };
 		B146592A1D11D177008AD4CF /* TouristPlanner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B14659281D11D177008AD4CF /* TouristPlanner.xcdatamodeld */; };
 		B146592F1D11D893008AD4CF /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B146592E1D11D893008AD4CF /* CoreDataStackManager.swift */; };
+		B14659311D11DEBF008AD4CF /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14659301D11DEBF008AD4CF /* ImageCache.swift */; };
 		B150770D1D04E2E60081C277 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150770C1D04E2E60081C277 /* AppDelegate.swift */; };
 		B150770F1D04E2E60081C277 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150770E1D04E2E60081C277 /* MapViewController.swift */; };
 		B15077121D04E2E60081C277 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B15077101D04E2E60081C277 /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 		B14659261D11D02D008AD4CF /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		B14659291D11D177008AD4CF /* TouristPlanner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TouristPlanner.xcdatamodel; sourceTree = "<group>"; };
 		B146592E1D11D893008AD4CF /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
+		B14659301D11DEBF008AD4CF /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		B15077091D04E2E60081C277 /* tourist-planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tourist-planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B150770C1D04E2E60081C277 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B150770E1D04E2E60081C277 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				B146592B1D11D1FE008AD4CF /* CoreData */,
 				B15077241D04E96A0081C277 /* Flickr */,
 				B15077221D04E91C0081C277 /* NetworkHelper.swift */,
+				B14659301D11DEBF008AD4CF /* ImageCache.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B15077231D04E91C0081C277 /* NetworkHelper.swift in Sources */,
+				B14659311D11DEBF008AD4CF /* ImageCache.swift in Sources */,
 				B15077261D0634190081C277 /* FlickrClient.swift in Sources */,
 				B15077201D04E6110081C277 /* BauUtils.swift in Sources */,
 				B150772C1D06A4020081C277 /* CustomAlert.swift in Sources */,
