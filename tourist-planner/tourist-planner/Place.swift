@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
-class Place: NSObject {
-    var latitude: Double
-    var longitude: Double
+class Place: NSManagedObject {
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     var photos:[PhotoFlickr]?
     
     

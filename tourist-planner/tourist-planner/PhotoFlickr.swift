@@ -7,15 +7,32 @@
 //
 
 import UIKit
+import CoreData
 
-class PhotoFlickr: NSObject {
+class PhotoFlickr: NSManagedObject {
 
-    var place: Place?
-    var url: String?
-    var id: String?
+    @NSManaged var place: Place
+    @NSManaged var url: String
+    @NSManaged var id: String
+    
+    struct Keys {
+        static let url = "url_m"
+        static let id = "id"
+    }
     
 
+    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    }
     
+    init(dictionary:[String:AnyObject], context: NSManagedObjectContext) {
+        
+        let entity = NSEntityDescription.entityForName("PhotoFlickr", inManagedObjectContext: context)!
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        
+        id = dictionary[Keys.id] as! String
+        url = dictionary[Keys.url] as! String
+    }
     
     
 }
