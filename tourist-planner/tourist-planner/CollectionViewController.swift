@@ -9,18 +9,19 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
 class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,MKMapViewDelegate {
-    var annotation: MKAnnotation? = nil
+    var placeAnnotation: Place!
     var photos: [String] = []
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var collection: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         updateLocationsMap()
-        getPhotosFlickrGeo(annotation!.coordinate)
+        getPhotosFlickrGeo(placeAnnotation!.coordinate)
     }
     
     
@@ -32,12 +33,12 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         })
 
         var annotations = [MKAnnotation]()
-        annotations.append(self.annotation!)
+        annotations.append(self.placeAnnotation!)
         
         
         //zoom
         let span = MKCoordinateSpanMake(0.0225, 0.0225);
-        let region = MKCoordinateRegionMake(self.annotation!.coordinate, span);
+        let region = MKCoordinateRegionMake(self.placeAnnotation!.coordinate, span);
         
         performUIUpdatesOnMain({
             // When the array is complete, we add the annotations to the map.
@@ -118,5 +119,26 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             self.collection.reloadData()
         }
     }
+    
+    // MARK: - Core Data Convenience
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    // Mark: - Fetched Results Controller
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        
+        let fetchRequest = NSFetchRequest(entityName: "PhotoFlickr")
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "place == %@", self.placeAnnotation);
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                                  managedObjectContext: self.sharedContext,
+                                                                  sectionNameKeyPath: nil,
+                                                                  cacheName: nil)
+        
+        return fetchedResultsController
+        
+    }()
 
 }

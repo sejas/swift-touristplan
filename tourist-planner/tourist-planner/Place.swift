@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import MapKit
 
-class Place: NSManagedObject {
+class Place: NSManagedObject, MKAnnotation {
     @NSManaged var latitude: Double
     @NSManaged var longitude: Double
     @NSManaged var photos:[PhotoFlickr]?
@@ -20,6 +20,10 @@ class Place: NSManagedObject {
         static let longitude = "longitude"
     }
     
+
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2DMake(latitude, longitude)
+    }
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
@@ -35,9 +39,14 @@ class Place: NSManagedObject {
         
     }
     
-    func getCoordinate() -> CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    init(latitude:Double, longitude:Double, context: NSManagedObjectContext) {
+        
+        let entity = NSEntityDescription.entityForName("Place", inManagedObjectContext: context)!
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        
+        self.latitude = latitude
+        self.longitude = longitude
+        
     }
-    
     
 }
