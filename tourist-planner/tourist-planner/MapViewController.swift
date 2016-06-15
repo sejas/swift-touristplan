@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
@@ -138,8 +139,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if ("toCollectionView" == segue.identifier!) {
             let v = segue.destinationViewController as! CollectionViewController
-            v.annotation = sender as? MKAnnotation
+            let a = sender as? MKAnnotation
+            v.placeAnnotation = Place(latitude: (a?.coordinate.latitude)!, longitude: (a?.coordinate.longitude)!, context: sharedContext)
         }
+    }
+    
+    // MARK: - Core Data Convenience
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
     }
     
 }

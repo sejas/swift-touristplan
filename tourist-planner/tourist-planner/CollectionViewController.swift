@@ -12,6 +12,7 @@ import CoreLocation
 import CoreData
 
 class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,MKMapViewDelegate {
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     var placeAnnotation: Place!
     var photos: [String] = []
     
@@ -20,6 +21,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        initCollection()
         updateLocationsMap()
         getPhotosFlickrGeo(placeAnnotation!.coordinate)
     }
@@ -32,8 +34,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             self.map.removeAnnotations(self.map.annotations)
         })
 
-        var annotations = [MKAnnotation]()
-        annotations.append(self.placeAnnotation!)
+        var annotations = [Place]()
+        annotations.append(self.placeAnnotation)
         
         
         //zoom
@@ -71,6 +73,20 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     }
 
     // MARK: Collection
+    func initCollection() {
+        collection.allowsSelection = true
+        collection.allowsMultipleSelection = true
+        initFlowLayout()
+    }
+    //Set 3 cells per row
+    func initFlowLayout() {
+        let space:CGFloat = 3.0
+        let dimension = (self.view.bounds.size.width - ( 2 * space )) / 2.0
+        print("dimension: \(dimension), orientation: \(UIDevice.currentDevice().orientation.isPortrait), width: \(self.view.bounds.size.width)")
+        flowLayout.minimumInteritemSpacing = space
+        flowLayout.minimumLineSpacing = space
+        flowLayout.itemSize = CGSizeMake(dimension, dimension*1.2)
+    }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }

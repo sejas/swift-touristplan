@@ -151,6 +151,7 @@
                     </view>
                     <connections>
                         <outlet property="collection" destination="yHi-K2-wsl" id="wa8-Po-a3I"/>
+                        <outlet property="flowLayout" destination="6w2-p3-zfE" id="ahf-7V-8ZW"/>
                         <outlet property="map" destination="eWs-NX-zYb" id="WbZ-Nc-gcw"/>
                     </connections>
                 </viewController>
