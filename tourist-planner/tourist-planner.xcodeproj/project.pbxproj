@@ -10,7 +10,7 @@
 		B14659231D0E1D60008AD4CF /* CellPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14659221D0E1D60008AD4CF /* CellPhotoCollectionViewCell.swift */; };
 		B14659251D11CE8B008AD4CF /* PhotoFlickr.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14659241D11CE8B008AD4CF /* PhotoFlickr.swift */; };
 		B14659271D11D02D008AD4CF /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14659261D11D02D008AD4CF /* Place.swift */; };
-		B146592A1D11D177008AD4CF /* TouristPlanner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B14659281D11D177008AD4CF /* TouristPlanner.xcdatamodeld */; };
+		B146592A1D11D177008AD4CF /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B14659281D11D177008AD4CF /* Model.xcdatamodeld */; };
 		B146592F1D11D893008AD4CF /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B146592E1D11D893008AD4CF /* CoreDataStackManager.swift */; };
 		B14659311D11DEBF008AD4CF /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14659301D11DEBF008AD4CF /* ImageCache.swift */; };
 		B150770D1D04E2E60081C277 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B150770C1D04E2E60081C277 /* AppDelegate.swift */; };
@@ -29,7 +29,7 @@
 		B14659221D0E1D60008AD4CF /* CellPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		B14659241D11CE8B008AD4CF /* PhotoFlickr.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFlickr.swift; sourceTree = "<group>"; };
 		B14659261D11D02D008AD4CF /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
-		B14659291D11D177008AD4CF /* TouristPlanner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TouristPlanner.xcdatamodel; sourceTree = "<group>"; };
+		B14659291D11D177008AD4CF /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		B146592E1D11D893008AD4CF /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		B14659301D11DEBF008AD4CF /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		B15077091D04E2E60081C277 /* tourist-planner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tourist-planner.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +63,7 @@
 				B146592E1D11D893008AD4CF /* CoreDataStackManager.swift */,
 				B14659241D11CE8B008AD4CF /* PhotoFlickr.swift */,
 				B14659261D11D02D008AD4CF /* Place.swift */,
-				B14659281D11D177008AD4CF /* TouristPlanner.xcdatamodeld */,
+				B14659281D11D177008AD4CF /* Model.xcdatamodeld */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -220,7 +220,7 @@
 				B150770D1D04E2E60081C277 /* AppDelegate.swift in Sources */,
 				B14659231D0E1D60008AD4CF /* CellPhotoCollectionViewCell.swift in Sources */,
 				B14659251D11CE8B008AD4CF /* PhotoFlickr.swift in Sources */,
-				B146592A1D11D177008AD4CF /* TouristPlanner.xcdatamodeld in Sources */,
+				B146592A1D11D177008AD4CF /* Model.xcdatamodeld in Sources */,
 				B14659271D11D02D008AD4CF /* Place.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,13 +378,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		B14659281D11D177008AD4CF /* TouristPlanner.xcdatamodeld */ = {
+		B14659281D11D177008AD4CF /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				B14659291D11D177008AD4CF /* TouristPlanner.xcdatamodel */,
+				B14659291D11D177008AD4CF /* Model.xcdatamodel */,
 			);
-			currentVersion = B14659291D11D177008AD4CF /* TouristPlanner.xcdatamodel */;
-			path = TouristPlanner.xcdatamodeld;
+			currentVersion = B14659291D11D177008AD4CF /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
