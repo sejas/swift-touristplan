@@ -16,6 +16,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     
     @IBOutlet weak var map: MKMapView!
     
+    var locations:[Place] = []
+    
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
@@ -25,10 +27,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         
         //Get locations from api
         //        getParseLocationsAndRefreshMap()
-        
         print("fetchedLocations = \(self.fetchPlaces())")
         print("count = \(self.fetchPlaces().count)")
-        
+        locations = self.fetchPlaces()
+        updateLocationsMap()
     }
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.navigationBarHidden = true
@@ -43,29 +45,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         performUIUpdatesOnMain({
             self.map.removeAnnotations(self.map.annotations)
         })
-        // We will create an MKPointAnnotation for each dictionary in "locations". The
-        // point annotations will be stored in this array, and then provided to the map view.
-        var annotations = [MKPointAnnotation]()
-        
-        // The "locations" array is loaded with the sample data below. We are using the dictionaries
-        // to create map annotations. This would be more stylish if the dictionaries were being
-        // used to create custom structs. Perhaps StudentLocation structs.
-        
-        //        for oneLocation in StudentLocations.sharedInstance().locations {
-        //
-        //            // Here we create the annotation and set its coordiate, title, and subtitle properties
-        //            let annotation = MKPointAnnotation()
-        //            annotation.coordinate = oneLocation.coordinate
-        //            annotation.title = "\(oneLocation.firstName) \(oneLocation.lastName)"
-        //            annotation.subtitle = oneLocation.mediaURL
-        //
-        //            // Finally we place the annotation in an array of annotations.
-        //            annotations.append(annotation)
-        //        }
         
         performUIUpdatesOnMain({
             // When the array is complete, we add the annotations to the map.
-            self.map.addAnnotations(annotations)
+            self.map.addAnnotations(self.locations)
         })
     }
     
