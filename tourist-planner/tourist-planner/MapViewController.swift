@@ -16,6 +16,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     
     @IBOutlet weak var map: MKMapView!
     
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -73,24 +77,24 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     // method in TableViewDataSource.
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
-//        let reuseId = "pin"
-//        
-//        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
-//        
-//        if pinView == nil {
-//            let place = Place(coordinate: annotation.coordinate, context: sharedContext )
-//            pinView = MKPinAnnotationView(annotation: place, reuseIdentifier: reuseId)
-//            //            pinView!.canShowCallout = true
-//            pinView!.pinTintColor = UIColor.blueColor()
-//            //            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-//            
-//            pinView!.canShowCallout = false //false, because  when tap on pin we make a segue
-//        }
-//        else {
-//            pinView!.annotation = annotation
-//        }
-//        
-//        return pinView
+        //        let reuseId = "pin"
+        //
+        //        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        //
+        //        if pinView == nil {
+        //            let place = Place(coordinate: annotation.coordinate, context: sharedContext )
+        //            pinView = MKPinAnnotationView(annotation: place, reuseIdentifier: reuseId)
+        //            //            pinView!.canShowCallout = true
+        //            pinView!.pinTintColor = UIColor.blueColor()
+        //            //            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+        //
+        //            pinView!.canShowCallout = false //false, because  when tap on pin we make a segue
+        //        }
+        //        else {
+        //            pinView!.annotation = annotation
+        //        }
+        //
+        //        return pinView
         if let annotation = annotation as? Place {
             let identifier = "pin"
             var view: MKPinAnnotationView
@@ -109,7 +113,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
             return view
         }
         return nil
-
+        
     }
     
     // This delegate method is implemented to respond to taps. It opens the system browser
@@ -126,15 +130,15 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     
     //MARK: Network
     func getRandomPhotos() {
-//        let coordinates = CLLocationCoordinate2D(latitude: 28.124904, longitude: -15.428243)
-//        FlickrClient.sharedInstance().searchPhotosByLocation(coordinates) { (result, error) in
-//            guard nil == error else {
-//                print("error searchPhotosByLocation",error)
-//                CustomAlert.sharedInstance().showError(self, title: "", message: "Error searching photos")
-//                return
-//            }
-//            print("searchPhotosByLocation",result)
-//        }
+        //        let coordinates = CLLocationCoordinate2D(latitude: 28.124904, longitude: -15.428243)
+        //        FlickrClient.sharedInstance().searchPhotosByLocation(coordinates) { (result, error) in
+        //            guard nil == error else {
+        //                print("error searchPhotosByLocation",error)
+        //                CustomAlert.sharedInstance().showError(self, title: "", message: "Error searching photos")
+        //                return
+        //            }
+        //            print("searchPhotosByLocation",result)
+        //        }
     }
     
     
@@ -144,13 +148,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         return true
     }
     @IBAction func actionGestureLongPress(sender: UILongPressGestureRecognizer) {
-//        let touchPoint = sender.locationInView(map)
-//        let newCoordinates = map.convertPoint(touchPoint, toCoordinateFromView: map)
-//        let annotation = MKPointAnnotation()
-//        annotation.coordinate = newCoordinates
-//        
-//        
-//        map.addAnnotation(annotation)
+        //        let touchPoint = sender.locationInView(map)
+        //        let newCoordinates = map.convertPoint(touchPoint, toCoordinateFromView: map)
+        //        let annotation = MKPointAnnotation()
+        //        annotation.coordinate = newCoordinates
+        //
+        //
+        //        map.addAnnotation(annotation)
         
         // get referance to long press coords
         let touchPoint = sender.locationInView(map)
@@ -165,21 +169,21 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         case .Changed:
             // update coordinate on drag
             //https://discussions.udacity.com/t/how-can-i-make-a-new-pin-draggable-right-after-adding-it/26653
-//            locationToBeAdded!.willChangeValueForKey("coordinate")
-//            locationToBeAdded!.coordinate = newCoordinates
-//            locationToBeAdded!.didChangeValueForKey("coordinate")
+            //            locationToBeAdded!.willChangeValueForKey("coordinate")
+            //            locationToBeAdded!.coordinate = newCoordinates
+            //            locationToBeAdded!.didChangeValueForKey("coordinate")
             break
         case .Ended:
             
             // save in completion handler??????
-//            FlickrClient.sharedInstance().fetchPhotosForLocation(locationToBeAdded!) { }
+            //            FlickrClient.sharedInstance().fetchPhotosForLocation(locationToBeAdded!) { }
             CoreDataStackManager.sharedInstance().saveContext()
             print("count = \(self.fetchPlaces().count)")
             
         default:
             return
         }
-
+        
     }
     
     //Segue
@@ -193,15 +197,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         if ("toCollectionView" == segue.identifier!) {
             let v = segue.destinationViewController as! CollectionViewController
             let a = sender as? Place
-//            v.placeAnnotation = Place(latitude: (a?.coordinate.latitude)!, longitude: (a?.coordinate.longitude)!, context: sharedContext)
+            //            v.placeAnnotation = Place(latitude: (a?.coordinate.latitude)!, longitude: (a?.coordinate.longitude)!, context: sharedContext)
             v.placeAnnotation = a
         }
     }
     
     // MARK: - Core Data Convenience
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext
-    }
+    
     
     //MARK: - Core Data Fetch Places
     

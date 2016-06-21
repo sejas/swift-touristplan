@@ -5,22 +5,28 @@
 //  Created by Antonio Sejas on 15/6/16.
 //  Copyright © 2016 Antonio Sejas. All rights reserved.
 //
-
 import CoreData
 import MapKit
 
-class Place: NSManagedObject, MKAnnotation {
+class Place: NSManagedObject, MKAnnotation{
+    
     @NSManaged var latitude: Double
     @NSManaged var longitude: Double
-    @NSManaged var photos:[PhotoFlickr]
+    @NSManaged var photos: NSMutableOrderedSet
+    
     
     struct Keys {
-        static let latitude = "latitude"
+        static let place = "Place"
         static let longitude = "longitude"
+        static let latitude = "latitude"
     }
     
-
+    // conform to MKAnnotation
     var coordinate: CLLocationCoordinate2D {
+        set {
+            self.latitude = newValue.latitude
+            self.longitude = newValue.longitude
+        }        
         get {
             return CLLocationCoordinate2DMake(latitude, longitude)
         }
@@ -30,27 +36,40 @@ class Place: NSManagedObject, MKAnnotation {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
-//    init(dictionary:[String:AnyObject], context: NSManagedObjectContext) {
-//        
-//        let entity = NSEntityDescription.entityForName("Place", inManagedObjectContext: context)!
-//        super.init(entity: entity, insertIntoManagedObjectContext: context)
-//        
-//        latitude = dictionary[Keys.latitude] as! Double
-//        longitude = dictionary[Keys.longitude] as! Double
-//        photos = [PhotoFlickr]()
-//    }
-    
-    init(coordinate:CLLocationCoordinate2D, context: NSManagedObjectContext) {
+    init(coordinate: CLLocationCoordinate2D, context: NSManagedObjectContext) {
         
-        let entity = NSEntityDescription.entityForName("Place", inManagedObjectContext: context)!
+        // Core Data
+        let entity = NSEntityDescription.entityForName(Keys.place, inManagedObjectContext: context)!
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
-        self.latitude = coordinate.latitude
-        self.longitude = coordinate.longitude
-        print("latitude \(latitude)  longitude\(longitude)")
-
-        self.photos = [PhotoFlickr]()
-        
+        latitude = coordinate.latitude
+        longitude = coordinate.longitude
+        self.photos = NSMutableOrderedSet()
     }
     
+    init(dictionary: [String : AnyObject], context: NSManagedObjectContext) {
+        
+        let entity = NSEntityDescription.entityForName(Keys.place, inManagedObjectContext: context)!
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        
+        if let latitude = dictionary[Keys.latitude] as! Double? {
+            if let longitude = dictionary[Keys.longitude] as! Double? {
+                self.latitude = latitude
+                self.longitude = longitude
+            }
+        }
+        self.photos = NSMutableOrderedSet()
+    }
+    
+    //MARK: override DESCRIPTION
+    override var description: String {
+        return String("Location: \(latitude), \(longitude)")
+    }
+    
+}
+
+//MARK: == Operator
+// isEqual
+func ==(lhs: Place, rhs: Place) -> Bool {
+    return (lhs.latitude == rhs.latitude) && (lhs.longitude == rhs.longitude)
 }
