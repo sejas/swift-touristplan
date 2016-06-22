@@ -59,25 +59,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     // decoration alternatives. Notice the similarity between this method and the cellForRowAtIndexPath
     // method in TableViewDataSource.
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        //        let reuseId = "pin"
-        //
-        //        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
-        //
-        //        if pinView == nil {
-        //            let place = Place(coordinate: annotation.coordinate, context: sharedContext )
-        //            pinView = MKPinAnnotationView(annotation: place, reuseIdentifier: reuseId)
-        //            //            pinView!.canShowCallout = true
-        //            pinView!.pinTintColor = UIColor.blueColor()
-        //            //            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-        //
-        //            pinView!.canShowCallout = false //false, because  when tap on pin we make a segue
-        //        }
-        //        else {
-        //            pinView!.annotation = annotation
-        //        }
-        //
-        //        return pinView
         if let annotation = annotation as? Place {
             let identifier = "pin"
             var view: MKPinAnnotationView
@@ -109,20 +90,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     //    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
     //        print("tapped and annotation",view)
     //    }
-    
-    
-    //MARK: Network
-    func getRandomPhotos() {
-        //        let coordinates = CLLocationCoordinate2D(latitude: 28.124904, longitude: -15.428243)
-        //        FlickrClient.sharedInstance().searchPhotosByLocation(coordinates) { (result, error) in
-        //            guard nil == error else {
-        //                print("error searchPhotosByLocation",error)
-        //                CustomAlert.sharedInstance().showError(self, title: "", message: "Error searching photos")
-        //                return
-        //            }
-        //            print("searchPhotosByLocation",result)
-        //        }
-    }
     
     
     //MARK: Gestures
@@ -170,7 +137,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     }
     
     //Segue
-    func mapView(mapView: MKMapView,didSelectAnnotationView view: MKAnnotationView){
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView){
         print("tapped and annotation",view)
         let place = view.annotation as! Place
         performSegueWithIdentifier("toCollectionView", sender: place)
@@ -179,9 +146,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if ("toCollectionView" == segue.identifier!) {
             let v = segue.destinationViewController as! CollectionViewController
-            let a = sender as? Place
-            //            v.placeAnnotation = Place(latitude: (a?.coordinate.latitude)!, longitude: (a?.coordinate.longitude)!, context: sharedContext)
-            v.placeAnnotation = a
+            v.placeAnnotation = sender as? Place
         }
     }
     
