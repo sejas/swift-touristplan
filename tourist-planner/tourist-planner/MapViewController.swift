@@ -139,6 +139,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     //Segue
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView){
         print("tapped and annotation",view)
+        self.map.deselectAnnotation(view.annotation, animated: false)
         let place = view.annotation as! Place
         performSegueWithIdentifier("toCollectionView", sender: place)
     }

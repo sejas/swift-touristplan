@@ -13,6 +13,9 @@ import CoreData
 
 class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,MKMapViewDelegate {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    @IBOutlet weak var toolBar: UIToolbar!
+    
+    
     var placeAnnotation: Place!
     var photos: [String] = []
     
@@ -23,7 +26,9 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         
         initCollection()
         updateLocationsMap()
-        getPhotosFlickrGeo(placeAnnotation!.coordinate)
+        if (0 == placeAnnotation.photos.count) {
+            getPhotosFlickrGeo(placeAnnotation!.coordinate)
+        }
     }
     
     

@@ -79,13 +79,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzi-9Y-m3E">
-                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                                <items>
-                                    <barButtonItem title="New Collection" width="580" id="jgX-KY-agG"/>
-                                </items>
-                            </toolbar>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eWs-NX-zYb">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="eWs-NX-zYb">
                                 <rect key="frame" x="0.0" y="64" width="600" height="132"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="132" id="zxf-7m-eD9"/>
@@ -94,7 +88,7 @@
                                     <outlet property="delegate" destination="DHu-1y-huL" id="aRS-Ew-xfU"/>
                                 </connections>
                             </mapView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yHi-K2-wsl">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yHi-K2-wsl">
                                 <rect key="frame" x="0.0" y="196" width="600" height="360"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6w2-p3-zfE">
                                     <size key="itemSize" width="147" height="166"/>
@@ -110,7 +104,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="147" height="166"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PLb-Ab-u7q">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PLb-Ab-u7q">
                                                     <rect key="frame" x="0.0" y="0.0" width="147" height="166"/>
                                                 </imageView>
                                             </subviews>
@@ -132,27 +126,34 @@
                                     <outlet property="delegate" destination="DHu-1y-huL" id="Wc9-3k-qsP"/>
                                 </connections>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wzi-9Y-m3E">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="XDA-Bt-Ez9"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="2nH-pU-hjz"/>
+                                    <barButtonItem title="New Collection" id="jgX-KY-agG"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="KVl-dj-Hps"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="wzi-9Y-m3E" secondAttribute="trailing" constant="-20" id="3fx-Yf-zcX"/>
-                            <constraint firstItem="wzi-9Y-m3E" firstAttribute="leading" secondItem="fjK-HR-Ovg" secondAttribute="leadingMargin" constant="-20" id="AVb-93-rmr"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="yHi-K2-wsl" secondAttribute="trailing" constant="-20" id="EBo-B5-n9x"/>
-                            <constraint firstItem="yHi-K2-wsl" firstAttribute="leading" secondItem="fjK-HR-Ovg" secondAttribute="leadingMargin" constant="-20" id="MOe-9Z-Azb"/>
-                            <constraint firstItem="yHi-K2-wsl" firstAttribute="top" secondItem="eWs-NX-zYb" secondAttribute="bottom" id="Txe-9Z-7WM"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="wzi-9Y-m3E" secondAttribute="trailing" constant="-20" id="VbB-Tu-LIB"/>
-                            <constraint firstItem="w5a-Ne-iBO" firstAttribute="top" secondItem="wzi-9Y-m3E" secondAttribute="bottom" id="Yei-Gk-c5p"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="eWs-NX-zYb" secondAttribute="trailing" constant="-20" id="b4P-9e-QcQ"/>
-                            <constraint firstItem="eWs-NX-zYb" firstAttribute="top" secondItem="4Ke-DK-BlZ" secondAttribute="bottom" id="cXi-SY-WVD"/>
-                            <constraint firstItem="wzi-9Y-m3E" firstAttribute="top" secondItem="yHi-K2-wsl" secondAttribute="bottom" id="gle-99-9sb"/>
-                            <constraint firstItem="eWs-NX-zYb" firstAttribute="leading" secondItem="fjK-HR-Ovg" secondAttribute="leadingMargin" constant="-20" id="j6G-FL-jz0"/>
-                            <constraint firstItem="wzi-9Y-m3E" firstAttribute="leading" secondItem="fjK-HR-Ovg" secondAttribute="leadingMargin" constant="-20" id="pwI-Iv-eBE"/>
+                            <constraint firstItem="yHi-K2-wsl" firstAttribute="top" secondItem="eWs-NX-zYb" secondAttribute="bottom" id="DZO-i8-GLE"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wzi-9Y-m3E" secondAttribute="trailing" constant="-20" id="M2K-XF-yLw"/>
+                            <constraint firstItem="yHi-K2-wsl" firstAttribute="leading" secondItem="fjK-HR-Ovg" secondAttribute="leadingMargin" constant="-20" id="dPJ-Q1-zlm"/>
+                            <constraint firstItem="wzi-9Y-m3E" firstAttribute="leading" secondItem="fjK-HR-Ovg" secondAttribute="leadingMargin" constant="-20" id="n6s-p8-a3I"/>
+                            <constraint firstItem="wzi-9Y-m3E" firstAttribute="top" secondItem="yHi-K2-wsl" secondAttribute="bottom" id="uIT-jO-Oc6"/>
+                            <constraint firstItem="w5a-Ne-iBO" firstAttribute="top" secondItem="wzi-9Y-m3E" secondAttribute="bottom" id="ulb-bH-lK5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yHi-K2-wsl" secondAttribute="trailing" constant="-20" id="yA1-P3-5YJ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collection" destination="yHi-K2-wsl" id="wa8-Po-a3I"/>
                         <outlet property="flowLayout" destination="6w2-p3-zfE" id="ahf-7V-8ZW"/>
                         <outlet property="map" destination="eWs-NX-zYb" id="WbZ-Nc-gcw"/>
+                        <outlet property="toolBar" destination="wzi-9Y-m3E" id="QAz-MV-V5A"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qe0-0n-ni4" userLabel="First Responder" sceneMemberID="firstResponder"/>
