@@ -33,18 +33,13 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         performUIUpdatesOnMain({
             self.map.removeAnnotations(self.map.annotations)
         })
-
-        var annotations = [Place]()
-        annotations.append(self.placeAnnotation)
-        
-        
         //zoom
         let span = MKCoordinateSpanMake(0.0225, 0.0225);
         let region = MKCoordinateRegionMake(self.placeAnnotation!.coordinate, span);
         
         performUIUpdatesOnMain({
             // When the array is complete, we add the annotations to the map.
-            self.map.addAnnotations(annotations)
+            self.map.addAnnotations([self.placeAnnotation])
             // self.map.setCenterCoordinate(self.annotation!.coordinate, animated: true)
             self.map.setRegion(region, animated: true)
         })
@@ -85,7 +80,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         print("dimension: \(dimension), orientation: \(UIDevice.currentDevice().orientation.isPortrait), width: \(self.view.bounds.size.width)")
         flowLayout.minimumInteritemSpacing = space
         flowLayout.minimumLineSpacing = space
-        flowLayout.itemSize = CGSizeMake(dimension, dimension*1.2)
+        flowLayout.itemSize = CGSizeMake(dimension, dimension)
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
@@ -132,7 +127,9 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
                 }
             }
             //TODO: reload collection
-            self.collection.reloadData()
+            performUIUpdatesOnMain({ 
+                self.collection.reloadData()
+            })
         }
     }
     
