@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 import CoreData
 
-class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,MKMapViewDelegate {
+class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,MKMapViewDelegate,NSFetchedResultsControllerDelegate {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var toolBar: UIToolbar!
     
@@ -26,7 +26,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         
         initCollection()
         updateLocationsMap()
-        if (0 == placeAnnotation.photos.count) {
+        if (self.fetchGallery()) {
             print("new pin without photos")
             getPhotosFlickrGeo(placeAnnotation!.coordinate)
         } else {
@@ -146,11 +146,11 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             print("Error performing fetch")
             CustomAlert.sharedInstance().showError(self, title: "", message: error.localizedDescription)
         }
-        return 0 == fetchedResultsController.fetchedObjects?.count
+        return 0 < fetchedResultsController.fetchedObjects?.count
         
     }
     // MARK: - Core Data Convenience
-    var sharedContext: NSManagedObjectContext {
+    var sharedContext = {
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
     // Mark: - Fetched Results Controller
@@ -158,13 +158,19 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         
         let fetchRequest = NSFetchRequest(entityName: "PhotoFlickr")
         
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "place == %@", self.placeAnnotation);
         
+//        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+//                                                                  managedObjectContext: self.sharedContext,
+//                                                                  sectionNameKeyPath: nil,
+//                                                                  cacheName: nil)
+        
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                                  managedObjectContext: self.sharedContext,
+                                                                  managedObjectContext: self.sharedContext(),
                                                                   sectionNameKeyPath: nil,
                                                                   cacheName: nil)
+        fetchedResultsController.delegate = self
         
         return fetchedResultsController
         
