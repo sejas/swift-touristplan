@@ -11,7 +11,7 @@ import MapKit
 import CoreLocation
 import CoreData
 
-class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,MKMapViewDelegate,NSFetchedResultsControllerDelegate {
+class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource,MKMapViewDelegate {
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var toolBar: UIToolbar!
     
@@ -150,7 +150,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         
     }
     // MARK: - Core Data Convenience
-    var sharedContext = {
+    var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
     // Mark: - Fetched Results Controller
@@ -161,16 +161,11 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
         fetchRequest.predicate = NSPredicate(format: "place == %@", self.placeAnnotation);
         
-//        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-//                                                                  managedObjectContext: self.sharedContext,
-//                                                                  sectionNameKeyPath: nil,
-//                                                                  cacheName: nil)
-        
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                                                  managedObjectContext: self.sharedContext(),
+                                                                  managedObjectContext: self.sharedContext,
                                                                   sectionNameKeyPath: nil,
                                                                   cacheName: nil)
-        fetchedResultsController.delegate = self
+        
         
         return fetchedResultsController
         
