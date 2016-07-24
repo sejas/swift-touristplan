@@ -56,10 +56,9 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            //            pinView!.canShowCallout = true
             pinView!.pinTintColor = UIColor.blueColor()
-            //            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-            pinView!.canShowCallout = false //false, because  when tap on pin we make a segue
+            //false, because  when tap on pin we make a segue
+            pinView!.canShowCallout = false
         }
         else {
             pinView!.annotation = annotation
@@ -98,8 +97,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collection.dequeueReusableCellWithReuseIdentifier("cellPhoto", forIndexPath: indexPath) as! CellPhotoCollectionViewCell
         
-        if let urlString = photos[indexPath.row] as? String,
-            let url = NSURL(string: urlString) {
+        let urlString = photos[indexPath.row]
+        if let url = NSURL(string: urlString) {
             if let data = NSData(contentsOfURL: url) {
                 performUIUpdatesOnMain({ 
                     cell.img.image = UIImage(data: data)

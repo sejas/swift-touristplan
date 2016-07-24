@@ -163,8 +163,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         let fetchRequest = NSFetchRequest(entityName: "Place")
         do {
             results = try sharedContext.executeFetchRequest(fetchRequest)
-        } catch error! as NSError {
-            results = nil
         } catch _ {
             results = nil
         }
