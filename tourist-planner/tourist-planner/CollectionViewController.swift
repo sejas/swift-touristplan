@@ -27,10 +27,10 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         initCollection()
         updateLocationsMap()
         if (self.fetchGallery()) {
+            print("old pin with photos: \(placeAnnotation.photos.count)")
+        } else {
             print("new pin without photos")
             getPhotosFlickrGeo(placeAnnotation!.coordinate)
-        } else {
-            print("old pin with photos\(placeAnnotation.photos.count)")
         }
     }
     
@@ -113,23 +113,29 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         return cell
     }
     
+    
     //MARK: Network
     func getPhotosFlickrGeo(coordinates:CLLocationCoordinate2D) {
-        // let coordinates = CLLocationCoordinate2D(latitude: 28.124904, longitude: -15.428243)
+        
+        deleteOldPhotos()
+        
         FlickrClient.sharedInstance().searchPhotosByLocation(coordinates) { (result, error) in
             guard nil == error else {
                 print("error searchPhotosByLocation",error)
                 CustomAlert.sharedInstance().showError(self, title: "", message: "Error searching photos")
                 return
             }
-            print("searchPhotosByLocation",result)
+            print("searchPhotosByLocation count: ",result.count)
             guard let photosWrapper = result["photos"]!,
             let photos = photosWrapper["photo"] as? [AnyObject] else {
                 return
             }
             for photo in photos {
-                if let url = photo["url_m"] as? String {
-                    self.photos.append(url)
+                if (photo["url_m"] as? String) != nil {
+                    //Create and save in coredata PhotoFlickr
+                    let photoFlickr = PhotoFlickr(dictionary: photo as! [String : AnyObject], context: self.sharedContext)
+                    photoFlickr.place = self.placeAnnotation
+                    self.placeAnnotation.photos.addObject(photoFlickr)
                 }
             }
             //TODO: reload collection
@@ -146,6 +152,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             print("Error performing fetch")
             CustomAlert.sharedInstance().showError(self, title: "", message: error.localizedDescription)
         }
+        print("fetchGallery count fetchedResultsController.fetchedObjects?.count \(fetchedResultsController.fetchedObjects?.count)")
         return 0 < fetchedResultsController.fetchedObjects?.count
         
     }
@@ -170,5 +177,17 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         return fetchedResultsController
         
     }()
+    
+    // Delete old photos to let create new album
+    func deleteOldPhotos() {
+        for photoFlickr in fetchedResultsController.fetchedObjects as! [PhotoFlickr] {
+            sharedContext.deleteObject(photoFlickr)
+        }
+        // delate relation.
+        // Question to test: The for is necesary? because we are using delete for cascade
+        self.placeAnnotation.photos = NSMutableOrderedSet()
+        
+        
+    }
 
 }
