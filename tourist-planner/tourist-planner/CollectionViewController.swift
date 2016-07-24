@@ -102,7 +102,6 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             cell.img.image = UIImage(named: "placeholder-image")
             //                cell.activityIndicator.startAnimating()
         })
-        if let url = NSURL(string: urlString) {
             FlickrClient.sharedInstance().downloadImage(urlString, completionHandler: { (image, error) in
                 guard (error == nil) else {
                     performUIUpdatesOnMain({
@@ -119,17 +118,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
                 })
                 
             })
-        }else{
-            CustomAlert.sharedInstance().showError(self, title: "", message: "Error reading URL Image")
-            performUIUpdatesOnMain({
-                cell.img.image = UIImage(named: "placeholder-image")
-                //                    cell.activityIndicator.stopAnimating()
-            })
-        }
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collection.dequeueReusableCellWithReuseIdentifier("cellPhoto", forIndexPath: indexPath) as! CellPhotoCollectionViewCell
-        
+        performUIUpdatesOnMain { 
+            //I want to avoid show an old image in the cell
+            //Maybe it should be in main queue?
+            cell.img.image = nil
+        }
         
         //let urlString = self.placeAnnotation.photos[indexPath.row].url
         let photoFlickr = self.placeAnnotation.photos[indexPath.row] as! PhotoFlickr
