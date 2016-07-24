@@ -17,7 +17,6 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     
     var placeAnnotation: Place!
-    var photos: [String] = []
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var collection: UICollectionView!
@@ -90,7 +89,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         flowLayout.itemSize = CGSizeMake(dimension, dimension)
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        return self.placeAnnotation.photos.count
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -100,7 +99,10 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collection.dequeueReusableCellWithReuseIdentifier("cellPhoto", forIndexPath: indexPath) as! CellPhotoCollectionViewCell
         
-        let urlString = photos[indexPath.row]
+        //let urlString = self.placeAnnotation.photos[indexPath.row].url
+        let photoFlickr = self.placeAnnotation.photos[indexPath.row] as! PhotoFlickr
+        let urlString = photoFlickr.url
+        
         if let url = NSURL(string: urlString) {
             if let data = NSData(contentsOfURL: url) {
                 performUIUpdatesOnMain({ 
