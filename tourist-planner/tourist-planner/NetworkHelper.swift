@@ -24,7 +24,7 @@ class NetworkHelper: NSObject {
     }
     let errors = errorsStruct()
     
-    // MARK: GET
+    // MARK: GET JSON
     func getRequest(urlString: String, headers: [String:String]?, completionHandlerForGET: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         guard let url = NSURL(string: urlString) else {
             let userInfo = [NSLocalizedDescriptionKey : "Error parsin URL \(urlString)"]
@@ -36,7 +36,33 @@ class NetworkHelper: NSObject {
         return requestHelper(request, completionHandler: completionHandlerForGET)
     }
     
-    // MARK: POST
+    // MARK: GET DATA
+    func getRequestReturnData(urlString: String, completionHandlerForGETData: (data: NSData, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        guard let url = NSURL(string: urlString) else {
+            let userInfo = [NSLocalizedDescriptionKey : "Error parsin URL \(urlString)"]
+            completionHandlerForGETData(data: NSData(), error: NSError(domain: "NetworkHelper", code: 1, userInfo: userInfo))
+            return NSURLSessionDataTask()
+        }
+        
+        let request = requestFromHeaders(url, headers: nil)
+        return requestHelperReturnData(request, completionHandler: completionHandlerForGETData)
+    }
+    func getImage(urlString: String, completionHandlerForGETData: (image: UIImage, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        return getRequestReturnData(urlString, completionHandlerForGETData: { (data, error) in
+            guard error == nil else {
+                completionHandlerForGETData(image: UIImage(), error: error)
+                return
+            }
+            if let image = UIImage(data: data) {
+                completionHandlerForGETData(image: image, error: nil)
+            }else{
+                let userInfo = [NSLocalizedDescriptionKey : "Error converting Image \(urlString)"]
+                completionHandlerForGETData(image: UIImage(), error: NSError(domain: "NetworkHelper", code: 2, userInfo: userInfo))
+            }
+        })
+    }
+    
+    // MARK: POST JSON get json
     func postRequestJSON(urlString: String, headers: [String:String]?, jsonBody: String, completionHandlerForPOST: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         guard let url = NSURL(string: urlString) else {
             let userInfo = [NSLocalizedDescriptionKey : "Error parsin URL \(urlString)"]
@@ -53,7 +79,7 @@ class NetworkHelper: NSObject {
         return requestHelper(request, completionHandler: completionHandlerForPOST)
     }
     
-    // MARK: POST
+    // MARK: POST parameters get json
     func postRequest(urlString: String, headers: [String:String]?, parameters: [String:String], completionHandlerForPOST: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
         guard let url = NSURL(string: urlString) else {
             let userInfo = [NSLocalizedDescriptionKey : "Error parsin URL \(urlString)"]
@@ -76,14 +102,14 @@ class NetworkHelper: NSObject {
         }
     }
     
-    // MARK: Request helper
-    private func requestHelper(request: NSURLRequest, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    
+    private func requestHelperReturnData(request: NSURLRequest, completionHandler: (data: NSData, error: NSError?) -> Void) -> NSURLSessionDataTask {
         print("NetworkHelper requestHelper request:",request)
         let task = session.dataTaskWithRequest(request) { (data, response, error) in
             func sendError(anError: anErrorStruct) {
                 print(anError)
                 let userInfo = [NSLocalizedDescriptionKey : anError.text]
-                completionHandler(result: nil, error: NSError(domain: "NetworkHelper", code: anError.code, userInfo: userInfo))
+                completionHandler(data: NSData(), error: NSError(domain: "NetworkHelper", code: anError.code, userInfo: userInfo))
             }
             
             guard (error == nil) else {
@@ -105,12 +131,24 @@ class NetworkHelper: NSObject {
                 sendError(anErrorStruct(text: "No data was returned by the request!", code: 9))
                 return
             }
+            completionHandler(data: data, error: nil)
             
-            self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandler)
         }
         task.resume()
         
         return task
+    }
+    
+    // MARK: Request helper for JSON data
+    private func requestHelper(request: NSURLRequest, completionHandler: (result: AnyObject!, error: NSError?) -> Void) -> NSURLSessionDataTask {
+        return requestHelperReturnData(request, completionHandler: { (data, error) in
+            guard (error == nil) else {
+                completionHandler(result: nil, error: error)
+                return
+            }
+            self.convertDataWithCompletionHandler(data, completionHandlerForConvertData: completionHandler)
+        })
+
     }
     //MARK: Helpers
     // given raw JSON, return a usable Foundation object

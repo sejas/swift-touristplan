@@ -36,6 +36,11 @@ class FlickrClient: NSObject {
         NetworkHelper.sharedInstance().postRequest(Constants.BaseURL, headers: nil, parameters: parameters, completionHandlerForPOST: completionHandler)
     }
     
+    func downloadImage(urlString: String, completionHandler: (image: UIImage, error: NSError?) -> Void) {
+        NetworkHelper.sharedInstance().getImage(urlString, completionHandlerForGETData: completionHandler)
+        
+    }
+    
     
     // MARK: - Shared Image Cache
     

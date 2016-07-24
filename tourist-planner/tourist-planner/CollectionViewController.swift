@@ -103,15 +103,48 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         let photoFlickr = self.placeAnnotation.photos[indexPath.row] as! PhotoFlickr
         let urlString = photoFlickr.url
         
-        if let url = NSURL(string: urlString) {
-            if let data = NSData(contentsOfURL: url) {
-                performUIUpdatesOnMain({ 
-                    cell.img.image = UIImage(data: data)
+        //If image in cache
+        //if photoFlickr.image != nil {
+        if let image = photoFlickr.image {
+            cell.img.image = image
+        }else{
+            performUIUpdatesOnMain({
+                cell.img.image = UIImage(named: "placeholder-image")
+//                cell.activityIndicator.startAnimating()
+            })
+            if let url = NSURL(string: urlString) {
+                if let data = NSData(contentsOfURL: url) {
+                    performUIUpdatesOnMain({
+//                        cell.activityIndicator.stopAnimating()
+                        photoFlickr.image = UIImage(data: data)
+                        cell.img.image = photoFlickr.image
+                    })
+                }
+                FlickrClient.sharedInstance().downloadImage(urlString, completionHandler: { (image, error) in
+                    guard (error == nil) else {
+                        performUIUpdatesOnMain({
+                            //ERROR downloading image
+                            cell.img.image = UIImage(named: "placeholder-image")
+                            //                cell.activityIndicator.stopAnimating()
+                        })
+                        return
+                    }
+                    performUIUpdatesOnMain({
+                        //                        cell.activityIndicator.stopAnimating()
+                        photoFlickr.image = image
+                        cell.img.image = photoFlickr.image
+                    })
+                    
+                })
+            }else{
+                CustomAlert.sharedInstance().showError(self, title: "", message: "Error reading URL Image")
+                performUIUpdatesOnMain({
+                    cell.img.image = UIImage(named: "placeholder-image")
+//                    cell.activityIndicator.stopAnimating()
                 })
             }
-        }else{
-            cell.img.image = UIImage(named: "placeholder-image")
         }
+
         return cell
     }
     

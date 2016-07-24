@@ -39,6 +39,17 @@ class PhotoFlickr: NSManagedObject {
         FlickrClient.Caches.imageCache.storeImage(nil, withIdentifier: self.id)
     }
     
+    var image: UIImage? {
+        
+        get {
+            return FlickrClient.Caches.imageCache.imageWithIdentifier(self.id)
+        }
+        
+        set {
+            FlickrClient.Caches.imageCache.storeImage(newValue, withIdentifier: self.id)
+        }
+    }
+    
     
     
 }
