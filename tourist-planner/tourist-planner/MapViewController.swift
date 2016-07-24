@@ -26,9 +26,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         super.viewDidLoad()
         
         //Get locations from api
-        //        getParseLocationsAndRefreshMap()
-        print("fetchedLocations = \(self.fetchPlaces())")
-        print("count = \(self.fetchPlaces().count)")
+        print("Fetched places count: \(self.fetchPlaces().count)")
         locations = self.fetchPlaces()
         updateLocationsMap()
     }

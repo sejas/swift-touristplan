@@ -27,7 +27,10 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         initCollection()
         updateLocationsMap()
         if (0 == placeAnnotation.photos.count) {
+            print("new pin without photos")
             getPhotosFlickrGeo(placeAnnotation!.coordinate)
+        } else {
+            print("old pin with photos\(placeAnnotation.photos.count)")
         }
     }
     
@@ -122,7 +125,6 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             print("searchPhotosByLocation",result)
             guard let photosWrapper = result["photos"]!,
             let photos = photosWrapper["photo"] as? [AnyObject] else {
-                    
                 return
             }
             for photo in photos {
@@ -136,7 +138,17 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             })
         }
     }
-    
+    // Coredata
+    func fetchGallery() -> Bool {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch let error as NSError {
+            print("Error performing fetch")
+            CustomAlert.sharedInstance().showError(self, title: "", message: error.localizedDescription)
+        }
+        return 0 == fetchedResultsController.fetchedObjects?.count
+        
+    }
     // MARK: - Core Data Convenience
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
