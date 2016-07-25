@@ -15,10 +15,15 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var toolBar: UIToolbar!
     
+    @IBOutlet weak var barButtonNewCollectionRemove: UIBarButtonItem!
+    
     
     var placeAnnotation: Place!
     
     var imagesSelected = [NSIndexPath]()
+    
+    enum uiStates: Int { case normal = 1, delete }
+    var currentState = uiStates.normal
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var collection: UICollectionView!
@@ -33,6 +38,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             print("new pin without photos")
             getPhotosFlickrGeo(placeAnnotation!.coordinate)
         }
+        
+        updateUI()
     }
     
     
@@ -74,6 +81,19 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print("calloutAccessoryControlTapped tapped and annotation",view)
     }
+    
+    func updateUI() {
+        if imagesSelected.count > 0 {
+            currentState = .delete
+            barButtonNewCollectionRemove.tintColor = UIColor.redColor()
+            barButtonNewCollectionRemove.title = "Remove Selected Pictures"
+        }else{
+            currentState = .normal
+            barButtonNewCollectionRemove.tintColor = UIColor.lightTextColor()
+            barButtonNewCollectionRemove.title = "New Collection"
+        }
+        self.collection.reloadData()
+    }
 
     // MARK: Collection
     func initCollection() {
@@ -102,7 +122,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         }else{
             imagesSelected.append(indexPath)
         }
-        self.collection.reloadData()
+        self.updateUI()
     }
     
     func setImageHolderAndDownloadImage(cell:CellPhotoCollectionViewCell, photoFlickr: PhotoFlickr) {
@@ -156,6 +176,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         }
 
         return cell
+    }
+    
+    //MARK: IBACTIONS New Collection Remove images
+    
+    @IBAction func actionNewCollection(sender: AnyObject) {
+    }
+    
+    @IBAction func actionRemovePictures(sender: AnyObject) {
     }
     
     

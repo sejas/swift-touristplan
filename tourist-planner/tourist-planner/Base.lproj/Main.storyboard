@@ -139,7 +139,11 @@
                                 </constraints>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="2nH-pU-hjz"/>
-                                    <barButtonItem title="New Collection" id="jgX-KY-agG"/>
+                                    <barButtonItem title="New Collection" id="jgX-KY-agG">
+                                        <connections>
+                                            <action selector="actionNewCollection:" destination="DHu-1y-huL" id="Wv1-Is-HFv"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="KVl-dj-Hps"/>
                                 </items>
                             </toolbar>
@@ -156,6 +160,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="barButtonNewCollectionRemove" destination="jgX-KY-agG" id="Hgl-Yt-IKi"/>
                         <outlet property="collection" destination="yHi-K2-wsl" id="wa8-Po-a3I"/>
                         <outlet property="flowLayout" destination="6w2-p3-zfE" id="ahf-7V-8ZW"/>
                         <outlet property="map" destination="eWs-NX-zYb" id="WbZ-Nc-gcw"/>
