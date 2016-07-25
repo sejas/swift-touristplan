@@ -18,6 +18,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     var placeAnnotation: Place!
     
+    var imagesSelected = [NSIndexPath]()
+    
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var collection: UICollectionView!
     override func viewDidLoad() {
@@ -94,25 +96,35 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         //
+        print("selected \(indexPath)")
+        if let index = imagesSelected.indexOf(indexPath) {
+            imagesSelected.removeAtIndex(index)
+        }else{
+            imagesSelected.append(indexPath)
+        }
+        self.collection.reloadData()
     }
     
     func setImageHolderAndDownloadImage(cell:CellPhotoCollectionViewCell, photoFlickr: PhotoFlickr) {
         let urlString = photoFlickr.url
         performUIUpdatesOnMain({
+            cell.activity?.startAnimating()
+            cell.activity?.hidden = false
             cell.img.image = UIImage(named: "placeholder-image")
-            //                cell.activityIndicator.startAnimating()
         })
             FlickrClient.sharedInstance().downloadImage(urlString, completionHandler: { (image, error) in
                 guard (error == nil) else {
                     performUIUpdatesOnMain({
                         //ERROR downloading image
+                        cell.activity?.stopAnimating()
+                        cell.activity?.hidden = true
                         cell.img.image = UIImage(named: "placeholder-image")
-                        //                cell.activityIndicator.stopAnimating()
                     })
                     return
                 }
                 performUIUpdatesOnMain({
-                    //                        cell.activityIndicator.stopAnimating()
+                    cell.activity?.stopAnimating()
+                    cell.activity?.hidden = true
                     photoFlickr.image = image
                     cell.img.image = photoFlickr.image
                 })
@@ -121,11 +133,10 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collection.dequeueReusableCellWithReuseIdentifier("cellPhoto", forIndexPath: indexPath) as! CellPhotoCollectionViewCell
-        performUIUpdatesOnMain { 
-            //I want to avoid show an old image in the cell
-            //Maybe it should be in main queue?
-            cell.img.image = nil
-        }
+        
+        //I want to avoid show an old image in the cell
+        //Maybe it should be in main queue?
+        cell.img.image = nil
         
         //let urlString = self.placeAnnotation.photos[indexPath.row].url
         let photoFlickr = self.placeAnnotation.photos[indexPath.row] as! PhotoFlickr
@@ -136,6 +147,12 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             cell.img.image = image
         }else{
             setImageHolderAndDownloadImage(cell, photoFlickr: photoFlickr)
+        }
+        
+        if (imagesSelected.indexOf(indexPath) != nil) {
+            cell.img.alpha = 0.3
+        }else{
+            cell.img.alpha = 1
         }
 
         return cell

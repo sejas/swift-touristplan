@@ -107,6 +107,9 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PLb-Ab-u7q">
                                                     <rect key="frame" x="0.0" y="0.0" width="147" height="166"/>
                                                 </imageView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="MiS-Bu-GIw">
+                                                    <rect key="frame" x="63" y="73" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -114,9 +117,12 @@
                                             <constraint firstAttribute="bottomMargin" secondItem="PLb-Ab-u7q" secondAttribute="bottom" constant="-8" id="2TM-iq-UTT"/>
                                             <constraint firstItem="PLb-Ab-u7q" firstAttribute="leading" secondItem="hyf-7w-svR" secondAttribute="leadingMargin" constant="-8" id="OxQ-zu-MHM"/>
                                             <constraint firstItem="PLb-Ab-u7q" firstAttribute="top" secondItem="hyf-7w-svR" secondAttribute="topMargin" constant="-8" id="Vsi-DX-XKc"/>
+                                            <constraint firstItem="MiS-Bu-GIw" firstAttribute="centerY" secondItem="PLb-Ab-u7q" secondAttribute="centerY" id="Y4Y-TH-V39"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="PLb-Ab-u7q" secondAttribute="trailing" constant="-8" id="dXW-lA-K2c"/>
+                                            <constraint firstItem="MiS-Bu-GIw" firstAttribute="centerX" secondItem="PLb-Ab-u7q" secondAttribute="centerX" id="ePZ-m1-AsY"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="activity" destination="MiS-Bu-GIw" id="CXc-nx-5ay"/>
                                             <outlet property="img" destination="PLb-Ab-u7q" id="n7K-Hc-kOb"/>
                                         </connections>
                                     </collectionViewCell>
