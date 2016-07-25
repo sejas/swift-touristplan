@@ -179,12 +179,18 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     //MARK: IBACTIONS New Collection Remove images
-    
+    func removeSelectedPictures() {
+        
+    }
     @IBAction func actionNewCollection(sender: AnyObject) {
+        if  currentState == .normal {
+            
+        }else {
+            //State is .delete
+            removeSelectedPictures()
+        }
     }
     
-    @IBAction func actionRemovePictures(sender: AnyObject) {
-    }
     
     
     //MARK: Network
