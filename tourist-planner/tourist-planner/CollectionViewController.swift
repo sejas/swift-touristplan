@@ -89,7 +89,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             barButtonNewCollectionRemove.title = "Remove Selected Pictures"
         }else{
             currentState = .normal
-            barButtonNewCollectionRemove.tintColor = UIColor.lightTextColor()
+            barButtonNewCollectionRemove.tintColor = self.view.tintColor
             barButtonNewCollectionRemove.title = "New Collection"
         }
         self.collection.reloadData()
