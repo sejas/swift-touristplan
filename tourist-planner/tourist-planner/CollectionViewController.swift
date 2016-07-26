@@ -181,10 +181,17 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     //MARK: IBACTIONS New Collection Remove images
+    // instead of save indexpath , I could save the photoFlickr object.
     func removeSelectedPictures() {
+        var imagesToDelete = [PhotoFlickr]()
         for indexPath in imagesSelected {
             let photoFlickr = placeAnnotation.photos[indexPath.row] as! PhotoFlickr
-            sharedContext.deleteObject(photoFlickr)
+            imagesToDelete.append(photoFlickr)
+        }
+        
+        placeAnnotation.photos.removeObjectsInArray(imagesToDelete)
+        for photoFlicker in imagesToDelete {
+            sharedContext.deleteObject(photoFlicker)
         }
         
         imagesSelected.removeAll()
