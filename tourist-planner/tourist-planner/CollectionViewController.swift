@@ -92,7 +92,9 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             barButtonNewCollectionRemove.tintColor = self.view.tintColor
             barButtonNewCollectionRemove.title = "New Collection"
         }
-        self.collection.reloadData()
+        performUIUpdatesOnMain { 
+            self.collection.reloadData()
+        }
     }
 
     // MARK: Collection
@@ -180,7 +182,13 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     //MARK: IBACTIONS New Collection Remove images
     func removeSelectedPictures() {
+        for indexPath in imagesSelected {
+            let photoFlickr = placeAnnotation.photos[indexPath.row] as! PhotoFlickr
+            sharedContext.deleteObject(photoFlickr)
+        }
         
+        imagesSelected.removeAll()
+        updateUI()
     }
     @IBAction func actionNewCollection(sender: AnyObject) {
         if  currentState == .normal {
