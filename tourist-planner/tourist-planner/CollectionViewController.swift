@@ -194,6 +194,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             sharedContext.deleteObject(photoFlicker)
         }
         
+        CoreDataStackManager.sharedInstance().saveContext() // I need to add more this line 
+        
         imagesSelected.removeAll()
         updateUI()
     }
