@@ -25,8 +25,11 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     enum uiStates: Int { case normal = 1, delete }
     var currentState = uiStates.normal
     
+    let numberOfRandomPhotosLimit = 20
+    
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var collection: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -222,13 +225,21 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
                 CustomAlert.sharedInstance().showError(self, title: "", message: "Error searching photos")
                 return
             }
-            print("searchPhotosByLocation count: ",result.count)
+            print("searchPhotosByLocation count: ",result.count,result)
             guard let photosWrapper = result["photos"]!,
             let photos = photosWrapper["photo"] as? [AnyObject] else {
                 return
             }
-            for photo in photos {
-                if (photo["url_m"] as? String) != nil {
+//            for photo in photos {
+            let limit = min(self.numberOfRandomPhotosLimit, photos.count)
+            var randomNumbers = [Int]()
+            for _ in 0...limit {
+                let randomI = Int(arc4random_uniform(UInt32(photos.count)))
+                let photo = photos[randomI]
+                if nil == randomNumbers.indexOf(randomI)
+                    && (photo["url_m"] as? String) != nil {
+                    //If the random number/photo is not already in the collection and it has url
+                    randomNumbers.append(randomI)
                     //Create and save in coredata PhotoFlickr
                     let photoFlickr = PhotoFlickr(dictionary: photo as! [String : AnyObject], context: self.sharedContext)
                     photoFlickr.place = self.placeAnnotation
