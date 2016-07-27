@@ -18,6 +18,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     
     var locations:[Place] = []
     
+    var placeToBeAdded : Place? = nil
+    
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
     }
@@ -96,14 +98,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         return true
     }
     @IBAction func actionGestureLongPress(sender: UILongPressGestureRecognizer) {
-        //        let touchPoint = sender.locationInView(map)
-        //        let newCoordinates = map.convertPoint(touchPoint, toCoordinateFromView: map)
-        //        let annotation = MKPointAnnotation()
-        //        annotation.coordinate = newCoordinates
-        //
-        //
-        //        map.addAnnotation(annotation)
-        
         // get referance to long press coords
         let touchPoint = sender.locationInView(map)
         let newCoordinates = map.convertPoint(touchPoint, toCoordinateFromView: map)
@@ -111,20 +105,18 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         switch sender.state {
         case .Began:
             // create the location
-            let placeToBeAdded = Place(coordinate: newCoordinates, context: sharedContext)
-            map.addAnnotation(placeToBeAdded)
+            placeToBeAdded = Place(coordinate: newCoordinates, context: sharedContext)
+            map.addAnnotation(placeToBeAdded!)
             
         case .Changed:
             // update coordinate on drag
             //https://discussions.udacity.com/t/how-can-i-make-a-new-pin-draggable-right-after-adding-it/26653
-            //            locationToBeAdded!.willChangeValueForKey("coordinate")
-            //            locationToBeAdded!.coordinate = newCoordinates
-            //            locationToBeAdded!.didChangeValueForKey("coordinate")
+            placeToBeAdded!.willChangeValueForKey("coordinate")
+            placeToBeAdded!.coordinate = newCoordinates
+            placeToBeAdded!.didChangeValueForKey("coordinate")
             break
         case .Ended:
-            
-            // save in completion handler??????
-            //            FlickrClient.sharedInstance().fetchPhotosForLocation(locationToBeAdded!) { }
+            // save in coredata
             CoreDataStackManager.sharedInstance().saveContext()
             print("count = \(self.fetchPlaces().count)")
             

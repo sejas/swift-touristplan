@@ -230,7 +230,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             let photos = photosWrapper["photo"] as? [AnyObject] else {
                 return
             }
-//            for photo in photos {
+            
             let limit = min(self.numberOfRandomPhotosLimit-1, photos.count-1)
             var randomNumbers = [Int]()
             for _ in 0...limit {
@@ -253,7 +253,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             })
         }
     }
-    // Coredata
+    
+    // MARK: Coredata
     func fetchGallery() -> Bool {
         do {
             try fetchedResultsController.performFetch()
@@ -289,11 +290,11 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // Delete old photos to let create new album
     func deleteOldPhotos() {
+        // Question to test: The for is necesary? because we are using delete for cascade
         for photoFlickr in fetchedResultsController.fetchedObjects as! [PhotoFlickr] {
             sharedContext.deleteObject(photoFlickr)
         }
         // delate relation.
-        // Question to test: The for is necesary? because we are using delete for cascade
         self.placeAnnotation.photos = NSMutableOrderedSet()
         
         
