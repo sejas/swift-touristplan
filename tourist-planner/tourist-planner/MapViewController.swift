@@ -29,6 +29,13 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         print("Fetched places count: \(self.fetchPlaces().count)")
         locations = self.fetchPlaces()
         updateLocationsMap()
+        
+        
+        //Show the last place you were viewing
+        if let savedRegion = UserDefaults.sharedInstance().getCenterCoordinates() {
+            //map.setRegion(savedRegion, animated: false)
+            print(savedRegion)
+        }
     }
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.navigationBarHidden = true
@@ -87,6 +94,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         UserDefaults.sharedInstance().saveCenterCoordinates(mapView.centerCoordinate)
+        UserDefaults.sharedInstance().saveSpanCoordinates(mapView.region.span)
     }
     
     

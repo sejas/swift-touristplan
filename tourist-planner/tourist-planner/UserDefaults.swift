@@ -16,6 +16,10 @@ class UserDefaults: NSObject {
         // MARK: Preferences keys
         static let centerCoordinateLat: String = "mapCenterCoordinateLat"
         static let centerCoordinateLong: String = "mapCenterCoordinateLong"
+        
+        static let spanCoordinateLat: String = "mapSpanCoordinateLat"
+        static let spanCoordinateLong: String = "mapSpanCoordinateLong"
+
     }
     
     let prefs = NSUserDefaults.standardUserDefaults()
@@ -23,14 +27,20 @@ class UserDefaults: NSObject {
     
     func saveCenterCoordinates(coordinates: CLLocationCoordinate2D)  {
         prefs.setObject(NSNumber(double: coordinates.latitude), forKey: Constants.centerCoordinateLat)
-        prefs.setObject(NSNumber(double: coordinates.latitude), forKey: Constants.centerCoordinateLong)
+        prefs.setObject(NSNumber(double: coordinates.longitude), forKey: Constants.centerCoordinateLong)
     }
-    func getCenterCoordinates() -> CLLocationCoordinate2D? {
+    func saveSpanCoordinates(coordinates: MKCoordinateSpan)  {
+        prefs.setObject(NSNumber(double: coordinates.latitudeDelta), forKey: Constants.spanCoordinateLat)
+        prefs.setObject(NSNumber(double: coordinates.longitudeDelta), forKey: Constants.spanCoordinateLong)
+    }
+    func getCenterCoordinates() -> MKCoordinateRegion? {
         guard let lat = prefs.objectForKey(Constants.centerCoordinateLat),
-            let long = prefs.objectForKey(Constants.centerCoordinateLat) else {
+            let long = prefs.objectForKey(Constants.centerCoordinateLong),
+            let latSpan = prefs.objectForKey(Constants.centerCoordinateLat),
+            let longSpan = prefs.objectForKey(Constants.centerCoordinateLong) else {
             return nil
         }
-        return CLLocationCoordinate2D(latitude: lat.doubleValue, longitude: long.doubleValue)
+        return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat.doubleValue, longitude:long.doubleValue), span: MKCoordinateSpan(latitudeDelta: latSpan.doubleValue, longitudeDelta: longSpan.doubleValue))
     }
     
     
