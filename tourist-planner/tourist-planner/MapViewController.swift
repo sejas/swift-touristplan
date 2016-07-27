@@ -12,12 +12,10 @@ import CoreLocation
 import CoreData
 
 class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
-    
-    
+       
     @IBOutlet weak var map: MKMapView!
     
     var locations:[Place] = []
-    
     var placeToBeAdded : Place? = nil
     
     var sharedContext: NSManagedObjectContext {
@@ -87,6 +85,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     }
     
     
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        UserDefaults.sharedInstance().saveCenterCoordinates(mapView.centerCoordinate)
+    }
+    
+    
     //MARK: Gestures
     func gestureRecognizer(_: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
@@ -120,6 +123,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         }
         
     }
+    
     
     //Segue
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView){
