@@ -159,6 +159,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         //I want to avoid show an old image in the cell
         //Maybe it should be in main queue?
         cell.img.image = nil
+        cell.activity.hidden = true
         
         //let urlString = self.placeAnnotation.photos[indexPath.row].url
         let photoFlickr = self.placeAnnotation.photos[indexPath.row] as! PhotoFlickr
@@ -194,7 +195,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             sharedContext.deleteObject(photoFlicker)
         }
         
-        CoreDataStackManager.sharedInstance().saveContext() // I need to add more this line 
+        CoreDataStackManager.sharedInstance().saveContext()
         
         imagesSelected.removeAll()
         updateUI()
@@ -237,6 +238,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             //TODO: reload collection
             performUIUpdatesOnMain({ 
                 self.collection.reloadData()
+                CoreDataStackManager.sharedInstance().saveContext()
             })
         }
     }
