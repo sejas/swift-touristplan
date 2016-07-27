@@ -36,8 +36,8 @@ class UserDefaults: NSObject {
     func getCenterCoordinates() -> MKCoordinateRegion? {
         guard let lat = prefs.objectForKey(Constants.centerCoordinateLat),
             let long = prefs.objectForKey(Constants.centerCoordinateLong),
-            let latSpan = prefs.objectForKey(Constants.centerCoordinateLat),
-            let longSpan = prefs.objectForKey(Constants.centerCoordinateLong) else {
+            let latSpan = prefs.objectForKey(Constants.spanCoordinateLat),
+            let longSpan = prefs.objectForKey(Constants.spanCoordinateLong) else {
             return nil
         }
         return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat.doubleValue, longitude:long.doubleValue), span: MKCoordinateSpan(latitudeDelta: latSpan.doubleValue, longitudeDelta: longSpan.doubleValue))

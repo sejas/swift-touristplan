@@ -33,7 +33,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         
         //Show the last place you were viewing
         if let savedRegion = UserDefaults.sharedInstance().getCenterCoordinates() {
-            //map.setRegion(savedRegion, animated: false)
+            map.setRegion(savedRegion, animated: false)
             print(savedRegion)
         }
     }
