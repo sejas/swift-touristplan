@@ -205,7 +205,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     @IBAction func actionNewCollection(sender: AnyObject) {
         if  currentState == .normal {
-            
+            getPhotosFlickrGeo(placeAnnotation!.coordinate)
         }else {
             //State is .delete
             removeSelectedPictures()
@@ -231,7 +231,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
                 return
             }
 //            for photo in photos {
-            let limit = min(self.numberOfRandomPhotosLimit, photos.count)
+            let limit = min(self.numberOfRandomPhotosLimit-1, photos.count-1)
             var randomNumbers = [Int]()
             for _ in 0...limit {
                 let randomI = Int(arc4random_uniform(UInt32(photos.count)))
@@ -246,7 +246,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
                     self.placeAnnotation.photos.addObject(photoFlickr)
                 }
             }
-            //TODO: reload collection
+            
             performUIUpdatesOnMain({ 
                 self.collection.reloadData()
                 CoreDataStackManager.sharedInstance().saveContext()
