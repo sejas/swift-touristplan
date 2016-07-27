@@ -86,11 +86,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         print("calloutAccessoryControlTapped tapped and annotation",view)
     }
     
-    //
-    //    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-    //        print("tapped and annotation",view)
-    //    }
-    
     
     //MARK: Gestures
     func gestureRecognizer(_: UIGestureRecognizer,
@@ -109,8 +104,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
             map.addAnnotation(placeToBeAdded!)
             
         case .Changed:
-            // update coordinate on drag
             //https://discussions.udacity.com/t/how-can-i-make-a-new-pin-draggable-right-after-adding-it/26653
+            // let move the place when drag
             placeToBeAdded!.willChangeValueForKey("coordinate")
             placeToBeAdded!.coordinate = newCoordinates
             placeToBeAdded!.didChangeValueForKey("coordinate")
