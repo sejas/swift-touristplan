@@ -43,10 +43,10 @@ class FlickrClient: NSObject {
     
     
     // MARK: - Shared Image Cache
-    
-    struct Caches {
-        static let imageCache = ImageCache()
-    }
+    //Not used anymore
+//    struct Caches {
+//        static let imageCache = ImageCache()
+//    }
     
     // MARK: Shared Instance
     class func sharedInstance() -> FlickrClient {
