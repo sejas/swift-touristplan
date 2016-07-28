@@ -9,16 +9,9 @@
 import UIKit
 
 class CoreDataStackManager: NSObject {
+    // MARK: Shared Instance Singleton
+    static let sharedInstance = CoreDataStackManager()
+    
     let stack = CoreDataStack(modelName: "Model")!
     
-}
-// MARK - Singleton
-extension CoreDataStackManager {
-    // MARK: Shared Instance
-    class func sharedInstance() -> CoreDataStackManager {
-        struct Singleton {
-            static var sharedInstance = CoreDataStackManager()
-        }
-        return Singleton.sharedInstance
-    }
 }

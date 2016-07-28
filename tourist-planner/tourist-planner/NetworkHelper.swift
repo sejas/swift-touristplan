@@ -9,6 +9,9 @@
 import UIKit
 
 class NetworkHelper: NSObject {
+    // MARK: Shared Instance Singleton
+    static let sharedInstance = NetworkHelper()
+    
     // shared session
     var session = NSURLSession.sharedSession()
     
@@ -192,11 +195,4 @@ class NetworkHelper: NSObject {
         }
     }
     
-    // MARK: Shared Instance
-    class func sharedInstance() -> NetworkHelper {
-        struct Singleton {
-            static var sharedInstance = NetworkHelper()
-        }
-        return Singleton.sharedInstance
-    }
 }

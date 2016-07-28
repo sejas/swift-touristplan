@@ -137,7 +137,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             cell.activity?.hidden = false
             cell.img.image = UIImage(named: "placeholder-image")
         })
-            FlickrClient.sharedInstance().downloadImage(urlString, completionHandler: { (image, data, error) in
+            FlickrClient.sharedInstance.downloadImage(urlString, completionHandler: { (image, data, error) in
                 guard (error == nil) else {
                     performUIUpdatesOnMain({
                         //ERROR downloading image
@@ -198,7 +198,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             sharedContext.deleteObject(photoFlicker)
         }
         
-        CoreDataStackManager.sharedInstance().stack.save()
+        CoreDataStackManager.sharedInstance.stack.save()
         
         imagesSelected.removeAll()
         updateUI()
@@ -219,7 +219,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         
         deleteOldPhotos()
         
-        FlickrClient.sharedInstance().searchPhotosByLocation(coordinates) { (result, error) in
+        FlickrClient.sharedInstance.searchPhotosByLocation(coordinates) { (result, error) in
             guard nil == error else {
                 print("error searchPhotosByLocation",error)
                 CustomAlert.sharedInstance().showError(self, title: "", message: "Error searching photos")
@@ -249,7 +249,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             
             performUIUpdatesOnMain({ 
                 self.collection.reloadData()
-                CoreDataStackManager.sharedInstance().stack.save()
+                CoreDataStackManager.sharedInstance.stack.save()
             })
         }
     }
@@ -268,7 +268,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     // MARK: - Core Data Convenience
     var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().stack.context
+        return CoreDataStackManager.sharedInstance.stack.context
     }
     // Mark: - Fetched Results Controller
     lazy var fetchedResultsController: NSFetchedResultsController = {

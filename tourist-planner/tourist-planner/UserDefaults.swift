@@ -10,7 +10,8 @@ import UIKit
 import MapKit
 
 class UserDefaults: NSObject {
-
+    //MARK - Singleton
+    static let sharedInstance = UserDefaults()
     
     struct Constants {
         // MARK: Preferences keys
@@ -41,14 +42,5 @@ class UserDefaults: NSObject {
             return nil
         }
         return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat.doubleValue, longitude:long.doubleValue), span: MKCoordinateSpan(latitudeDelta: latSpan.doubleValue, longitudeDelta: longSpan.doubleValue))
-    }
-    
-    
-    // MARK: Shared Instance
-    class func sharedInstance() -> UserDefaults {
-        struct Singleton {
-            static var sharedInstance = UserDefaults()
-        }
-        return Singleton.sharedInstance
     }
 }

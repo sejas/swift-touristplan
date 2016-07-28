@@ -19,7 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     var placeToBeAdded : Place? = nil
     
     var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().stack.context
+        return CoreDataStackManager.sharedInstance.stack.context
     }
     
     override func viewDidLoad() {
@@ -32,7 +32,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
         
         
         //Show the last place you were viewing
-        if let savedRegion = UserDefaults.sharedInstance().getCenterCoordinates() {
+        if let savedRegion = UserDefaults.sharedInstance.getCenterCoordinates() {
             map.setRegion(savedRegion, animated: false)
             print(savedRegion)
         }
@@ -93,8 +93,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     
     
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        UserDefaults.sharedInstance().saveCenterCoordinates(mapView.centerCoordinate)
-        UserDefaults.sharedInstance().saveSpanCoordinates(mapView.region.span)
+        UserDefaults.sharedInstance.saveCenterCoordinates(mapView.centerCoordinate)
+        UserDefaults.sharedInstance.saveSpanCoordinates(mapView.region.span)
     }
     
     
@@ -123,7 +123,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
             break
         case .Ended:
             // save in coredata
-            CoreDataStackManager.sharedInstance().stack.save()
+            CoreDataStackManager.sharedInstance.stack.save()
             print("count = \(self.fetchPlaces().count)")
             
         default:

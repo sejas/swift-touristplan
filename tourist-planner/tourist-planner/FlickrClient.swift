@@ -10,6 +10,9 @@ import UIKit
 import CoreLocation
 
 class FlickrClient: NSObject {
+    // MARK: Shared Instance
+    static let sharedInstance = FlickrClient()
+    
     //MARK: Constants
     struct Constants {
         // MARK: URLs
@@ -33,11 +36,11 @@ class FlickrClient: NSObject {
         var parameters = commonParameters
         parameters["lat"] = "\(coordinates.latitude)"
         parameters["lon"] = "\(coordinates.longitude)"
-        NetworkHelper.sharedInstance().postRequest(Constants.BaseURL, headers: nil, parameters: parameters, completionHandlerForPOST: completionHandler)
+        NetworkHelper.sharedInstance.postRequest(Constants.BaseURL, headers: nil, parameters: parameters, completionHandlerForPOST: completionHandler)
     }
     
     func downloadImage(urlString: String, completionHandler: (image: UIImage, data:NSData, error: NSError?) -> Void) {
-        NetworkHelper.sharedInstance().getImage(urlString, completionHandlerForGETData: completionHandler)
+        NetworkHelper.sharedInstance.getImage(urlString, completionHandlerForGETData: completionHandler)
         
     }
     
@@ -47,14 +50,7 @@ class FlickrClient: NSObject {
 //    struct Caches {
 //        static let imageCache = ImageCache()
 //    }
-    
-    // MARK: Shared Instance
-    class func sharedInstance() -> FlickrClient {
-        struct Singleton {
-            static var sharedInstance = FlickrClient()
-        }
-        return Singleton.sharedInstance
-    }
+
     
     
 }
