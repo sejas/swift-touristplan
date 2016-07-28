@@ -19,7 +19,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
     var placeToBeAdded : Place? = nil
     
     var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext
+        return CoreDataStackManager.sharedInstance().stack.context
     }
     
     override func viewDidLoad() {
@@ -123,7 +123,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, NSFetchedResultsCo
             break
         case .Ended:
             // save in coredata
-            CoreDataStackManager.sharedInstance().saveContext()
+            CoreDataStackManager.sharedInstance().stack.save()
             print("count = \(self.fetchPlaces().count)")
             
         default:

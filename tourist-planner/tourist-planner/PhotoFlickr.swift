@@ -14,6 +14,7 @@ class PhotoFlickr: NSManagedObject {
     @NSManaged var place: Place
     @NSManaged var url: String
     @NSManaged var id: String
+    @NSManaged var imageData: NSData?
     
     struct Keys {
         static let url = "url_m"
@@ -35,20 +36,22 @@ class PhotoFlickr: NSManagedObject {
     }
     
     override func prepareForDeletion() {
-        // delete image from memory
-        FlickrClient.Caches.imageCache.storeImage(nil, withIdentifier: self.id)
+        // delete cache image from Documents Folder
+       // FlickrClient.Caches.imageCache.storeImage(nil, withIdentifier: self.id)
     }
     
-    var image: UIImage? {
-        
-        get {
-            return FlickrClient.Caches.imageCache.imageWithIdentifier(self.id)
-        }
-        
-        set {
-            FlickrClient.Caches.imageCache.storeImage(newValue, withIdentifier: self.id)
-        }
-    }
+    
+// Code to save and restore images from Documents Folder
+//    var image: UIImage? { 
+//        get {
+//            return FlickrClient.Caches.imageCache.imageWithIdentifier(self.id)
+//        }
+//        
+//        set {
+//            FlickrClient.Caches.imageCache.storeImage(newValue, withIdentifier: self.id)
+//        }
+//    }
+
     
     
     

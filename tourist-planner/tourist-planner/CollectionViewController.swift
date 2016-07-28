@@ -137,7 +137,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             cell.activity?.hidden = false
             cell.img.image = UIImage(named: "placeholder-image")
         })
-            FlickrClient.sharedInstance().downloadImage(urlString, completionHandler: { (image, error) in
+            FlickrClient.sharedInstance().downloadImage(urlString, completionHandler: { (image, data, error) in
                 guard (error == nil) else {
                     performUIUpdatesOnMain({
                         //ERROR downloading image
@@ -150,8 +150,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
                 performUIUpdatesOnMain({
                     cell.activity?.stopAnimating()
                     cell.activity?.hidden = true
-                    photoFlickr.image = image
-                    cell.img.image = photoFlickr.image
+                    photoFlickr.imageData = data
+                    cell.img.image = image
                 })
                 
             })
@@ -169,8 +169,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         
         //If image in cache
         //if photoFlickr.image != nil {
-        if let image = photoFlickr.image {
-            cell.img.image = image
+        if let imageData = photoFlickr.imageData {
+            cell.img.image = UIImage(data: imageData)
         }else{
             setImageHolderAndDownloadImage(cell, photoFlickr: photoFlickr)
         }
@@ -198,7 +198,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             sharedContext.deleteObject(photoFlicker)
         }
         
-        CoreDataStackManager.sharedInstance().saveContext()
+        CoreDataStackManager.sharedInstance().stack.save()
         
         imagesSelected.removeAll()
         updateUI()
@@ -249,7 +249,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             
             performUIUpdatesOnMain({ 
                 self.collection.reloadData()
-                CoreDataStackManager.sharedInstance().saveContext()
+                CoreDataStackManager.sharedInstance().stack.save()
             })
         }
     }
@@ -268,7 +268,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     // MARK: - Core Data Convenience
     var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext
+        return CoreDataStackManager.sharedInstance().stack.context
     }
     // Mark: - Fetched Results Controller
     lazy var fetchedResultsController: NSFetchedResultsController = {

@@ -47,17 +47,17 @@ class NetworkHelper: NSObject {
         let request = requestFromHeaders(url, headers: nil)
         return requestHelperReturnData(request, completionHandler: completionHandlerForGETData)
     }
-    func getImage(urlString: String, completionHandlerForGETData: (image: UIImage, error: NSError?) -> Void) -> NSURLSessionDataTask {
+    func getImage(urlString: String, completionHandlerForGETData: (image: UIImage, data:NSData, error: NSError?) -> Void) -> NSURLSessionDataTask {
         return getRequestReturnData(urlString, completionHandlerForGETData: { (data, error) in
             guard error == nil else {
-                completionHandlerForGETData(image: UIImage(), error: error)
+                completionHandlerForGETData(image: UIImage(), data:NSData(), error: error)
                 return
             }
             if let image = UIImage(data: data) {
-                completionHandlerForGETData(image: image, error: nil)
+                completionHandlerForGETData(image: image, data:data, error: nil)
             }else{
                 let userInfo = [NSLocalizedDescriptionKey : "Error converting Image \(urlString)"]
-                completionHandlerForGETData(image: UIImage(), error: NSError(domain: "NetworkHelper", code: 2, userInfo: userInfo))
+                completionHandlerForGETData(image: UIImage(), data:NSData(), error: NSError(domain: "NetworkHelper", code: 2, userInfo: userInfo))
             }
         })
     }
