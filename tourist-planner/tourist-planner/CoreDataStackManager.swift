@@ -1,128 +1,179 @@
 //
-//  CoreDataStackManager.swift
-//  FavoriteActors
+//  CoreDataStack.swift
 //
-//  Created by Jason on 3/10/15.
-//  Copyright (c) 2015 Udacity. All rights reserved.
+//
+//  Created by Fernando Rodríguez Romero on 21/02/16.
+//  Copyright © 2016 udacity.com. All rights reserved.
 //
 
-import Foundation
 import CoreData
 
-/**
- * The CoreDataStackManager contains the code that was previously living in the
- * AppDelegate in Lesson 3. Apple puts the code in the AppDelegate in many of their
- * Xcode templates. But they put it in a convenience class like this in sample code
- * like the "Earthquakes" project.
- *
- */
-
-private let SQLITE_FILE_NAME = "Model.sqlite"
-
-class CoreDataStackManager {
+struct CoreDataStack {
+    
+    // MARK:  - Properties
+    private let model : NSManagedObjectModel
+    private let coordinator : NSPersistentStoreCoordinator
+    private let modelURL : NSURL
+    private let dbURL : NSURL
+    private let persistingContext : NSManagedObjectContext
+    private let backgroundContext : NSManagedObjectContext
+    let context : NSManagedObjectContext
     
     
-    // MARK: - Shared Instance
-    
-    /**
-     *  This class variable provides an easy way to get access
-     *  to a shared instance of the CoreDataStackManager class.
-     */
-    class func sharedInstance() -> CoreDataStackManager {
-        struct Static {
-            static let instance = CoreDataStackManager()
+    // MARK:  - Initializers
+    init?(modelName: String){
+        
+        // Assumes the model is in the main bundle
+        guard let modelURL = NSBundle.mainBundle().URLForResource(modelName, withExtension: "momd") else {
+            print("Unable to find \(modelName)in the main bundle")
+            return nil}
+        
+        self.modelURL = modelURL
+        
+        // Try to create the model from the URL
+        guard let model = NSManagedObjectModel(contentsOfURL: modelURL) else{
+            print("unable to create a model from \(modelURL)")
+            return nil
+        }
+        self.model = model
+        
+        
+        
+        // Create the store coordinator
+        coordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
+        
+        // Create a persistingContext (private queue) and a child one (main queue)
+        // create a context and add connect it to the coordinator
+        persistingContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        persistingContext.persistentStoreCoordinator = coordinator
+        
+        context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        context.parentContext = persistingContext
+        
+        // Create a background context child of main context
+        backgroundContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        backgroundContext.parentContext = context
+        
+        
+        // Add a SQLite store located in the documents folder
+        let fm = NSFileManager.defaultManager()
+        
+        guard let  docUrl = fm.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first else{
+            print("Unable to reach the documents folder")
+            return nil
         }
         
-        return Static.instance
+        self.dbURL = docUrl.URLByAppendingPathComponent("model.sqlite")
+        
+        
+        
+        do{
+            try addStoreCoordinator(NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: nil)
+            
+        }catch{
+            print("unable to add store at \(dbURL)")
+        }
+        
+        
+        
+        
+        
     }
     
-    // MARK: - The Core Data stack. The code has been moved, unaltered, from the AppDelegate.
-    
-    lazy var applicationDocumentsDirectory: NSURL = {
+    // MARK:  - Utils
+    func addStoreCoordinator(storeType: String,
+                             configuration: String?,
+                             storeURL: NSURL,
+                             options : [NSObject : AnyObject]?) throws{
         
-        print("Instantiating the applicationDocumentsDirectory property")
+        try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: dbURL, options: nil)
         
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1]
-    }()
-    
-    lazy var managedObjectModel: NSManagedObjectModel = {
-        // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
-        
-        print("Instantiating the managedObjectModel property")
-        
-        let modelURL = NSBundle.mainBundle().URLForResource("Model", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
-    }()
-    
-    /**
-     * The Persistent Store Coordinator is an object that the Context uses to interact with the underlying file system. Usually
-     * the persistent store coordinator object uses an SQLite database file to save the managed objects. But it is possible to
-     * configure it to use XML or other formats.
-     *
-     * Typically you will construct your persistent store manager exactly like this. It needs two pieces of information in order
-     * to be set up:
-     *
-     * - The path to the sqlite file that will be used. Usually in the documents directory
-     * - A configured Managed Object Model. See the next property for details.
-     */
-    
-    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
-        // The persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
-        // Create the coordinator and store
-        
-        print("Instantiating the persistentStoreCoordinator property")
-        
-        let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent(SQLITE_FILE_NAME)
-        
-        print("sqlite path: \(url.path!)")
-        
-        var failureReason = "There was an error creating or loading the application's saved data."
-        do {
-            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
-        } catch {
-            // Report any error we got.
-            var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
-            
-            dict[NSUnderlyingErrorKey] = error as NSError
-            let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
-            // Replace this with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
-            abort()
-        }
-        
-        return coordinator
-    }()
-    
-    
-    lazy var managedObjectContext: NSManagedObjectContext = {
-        // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
-        let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-        managedObjectContext.persistentStoreCoordinator = coordinator
-        return managedObjectContext
-    }()
-    
-    // MARK: - Core Data Saving support
-    
-    func saveContext () {
-        if managedObjectContext.hasChanges {
-            do {
-                try managedObjectContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
-                abort()
-            }
-        }
     }
 }
 
 
+// MARK:  - Removing data
+extension CoreDataStack  {
+    
+    func dropAllData() throws{
+        // delete all the objects in the db. This won't delete the files, it will
+        // just leave empty tables.
+        try coordinator.destroyPersistentStoreAtURL(dbURL, withType:NSSQLiteStoreType , options: nil)
+        
+        try addStoreCoordinator(NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: nil)
+        
+        
+    }
+}
 
+// MARK:  - Batch processing in the background
+extension CoreDataStack{
+    typealias Batch=(workerContext: NSManagedObjectContext) -> ()
+    
+    func performBackgroundBatchOperation(batch: Batch){
+        
+        backgroundContext.performBlock(){
+            batch(workerContext: self.backgroundContext)
+            
+            // Save it to the parent context, so normal saving
+            // can work
+            do{
+                try self.backgroundContext.save()
+            }catch{
+                fatalError("Error while saving backgroundContext: \(error)")
+            }
+        }
+    }
+}
+// MARK:  - Save
+extension CoreDataStack {
+    
+    func save() {
+        // We call this synchronously, but it's a very fast
+        // operation (it doesn't hit the disk). We need to know
+        // when it ends so we can call the next save (on the persisting
+        // context). This last one might take some time and is done
+        // in a background queue
+        context.performBlockAndWait(){
+            
+            if self.context.hasChanges{
+                do{
+                    try self.context.save()
+                }catch{
+                    fatalError("Error while saving main context: \(error)")
+                }
+                
+                // now we save in the background
+                self.persistingContext.performBlock(){
+                    do{
+                        try self.persistingContext.save()
+                    }catch{
+                        fatalError("Error while saving persisting context: \(error)")
+                    }
+                }
+                
+                
+            }
+        }
+        
+        
+        
+    }
+    
+    
+    func autoSave(delayInSeconds : Int){
+        
+        if delayInSeconds > 0 {
+            print("Autosaving")
+            save()
+            
+            let delayInNanoSeconds = UInt64(delayInSeconds) * NSEC_PER_SEC
+            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInNanoSeconds))
+            
+            dispatch_after(time, dispatch_get_main_queue(), {
+                self.autoSave(delayInSeconds)
+            })
+            
+        }
+    }
+}
