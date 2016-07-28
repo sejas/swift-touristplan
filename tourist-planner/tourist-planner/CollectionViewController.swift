@@ -290,10 +290,12 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     // Delete old photos to let create new album
     func deleteOldPhotos() {
-        // Question to test: The for is necesary? because we are using delete for cascade
         for photoFlickr in fetchedResultsController.fetchedObjects as! [PhotoFlickr] {
             sharedContext.deleteObject(photoFlickr)
         }
+        //We save core data to remove the photos from core data
+        CoreDataStackManager.sharedInstance.stack.save()
+        
         // delate relation.
         self.placeAnnotation.photos = NSMutableOrderedSet()
         
